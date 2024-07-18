@@ -1,4 +1,4 @@
-public class Player {
+public class Gameplay {
    
     private String validWords;
     private String userGuess;
