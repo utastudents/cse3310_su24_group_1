@@ -1,3 +1,5 @@
+package uta.cse3310;
+
 import java.time.LocalDateTime;
 
 public class Round {
@@ -27,16 +29,16 @@ public class Round {
     }
 
     public int calculateScore() {
-        
+        return 0;
     }
 
     public String getStatus() {
-       
+       return null;
     }
 
     
     public int getRoundNumber() {
-        
+        return 0;
     }
 
     public void setRoundNumber(int roundNumber) {
@@ -44,7 +46,7 @@ public class Round {
     }
 
     public LocalDateTime getStartTime() {
-       
+        return null;
     }
 
     public void setStartTime(LocalDateTime startTime) {
@@ -52,7 +54,7 @@ public class Round {
     }
 
     public LocalDateTime getEndTime() {
-     
+        return null;
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -60,7 +62,7 @@ public class Round {
     }
 
     public int getScore() {
-   
+        return 0;
     }
 
     public void setScore(int score) {
@@ -68,7 +70,7 @@ public class Round {
     }
 
     public String getStatus() {
-     
+        return null;
     }
 
     public void setStatus(String status) {
