@@ -8,7 +8,7 @@ public class Gameplay {
     private Player player;
 
     // Methods
-    public boolean answerCheck(userGuess) {
+    public boolean answerCheck(String userGuess) {
         return false;
     }
 

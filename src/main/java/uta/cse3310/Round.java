@@ -31,11 +31,6 @@ public class Round {
     public int calculateScore() {
         return 0;
     }
-
-    public String getStatus() {
-       return null;
-    }
-
     
     public int getRoundNumber() {
         return 0;

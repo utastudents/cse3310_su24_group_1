@@ -64,10 +64,11 @@ public class App extends WebSocketServer {
 
   // All games currently underway on this server are stored in
   // the vector ActiveGames
-  // private Vector<Game> ActiveGames = new Vector<Game>();
+  private Vector<Game> ActiveGames = new Vector<Game>();
   private Vector<Lobby> lobbies = new Vector<Lobby>();
 
   private int lobbyId = 1;
+  private int GameId = 1;
 
   private int connectionId = 0;
 
