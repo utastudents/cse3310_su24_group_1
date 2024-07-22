@@ -1,4 +1,4 @@
-# TicTacToe
+# Turn of Destiny
 
 ```bash
 % mvn clean
