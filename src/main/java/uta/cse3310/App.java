@@ -226,7 +226,7 @@ public class App extends WebSocketServer {
   public static void main(String[] args) {
 
     String HttpPort = System.getenv("HTTP_PORT");
-    int port = 9080;
+    int port = 9001;
     if (HttpPort!=null) {
       port = Integer.valueOf(HttpPort);
     }
@@ -239,7 +239,7 @@ public class App extends WebSocketServer {
 
     // create and start the websocket server
 
-    port = 9180;
+    port = 9101;
     String WSPort = System.getenv("WEBSOCKET_PORT");
     if (WSPort!=null) {
       port = Integer.valueOf(WSPort);
