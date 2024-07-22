@@ -3,16 +3,17 @@ package uta.cse3310;
 public class Player {
    
     private String playerName;
-    private String playerID;
+    private int playerID;
     private int points;
     private boolean statusPlayer;
-    private String[] inventory;
+    private String inventory;
 
-    public Player(String playerName, String playerID) {
+    public Player(String playerName, int playerID) {
         this.playerName = playerName;
         this.playerID = playerID;
         this.points = 0;
         this.statusPlayer = false; 
+        this.inventory = "nothing";
     }
 
     // Methods
@@ -30,15 +31,15 @@ public class Player {
 
    
     public String getPlayerName() {
-        return null;
+        return playerName;
     }
 
     public void setPlayerName(String playerName) {
        
     }
 
-    public void getPlayerID() {
-    
+    public int getPlayerID() {
+        return playerID;
     }
 
     public void setPlayerID(String playerID) {
@@ -46,7 +47,7 @@ public class Player {
     }
 
     public int getPoints() {
-        return 0;
+        return points;
     }
 
     public void setPoints(int points) {
