@@ -1,7 +1,7 @@
 package uta.cse3310;
 
 public class Player {
-   
+
     private String playerName;
     private int playerID;
     private int points;
@@ -18,7 +18,7 @@ public class Player {
 
     // Display the player's name
     public String displayName() {
-        return playerName;
+        return "Player Name: " + this.playerName;
     }
 
     // Display the player's score
@@ -33,7 +33,6 @@ public class Player {
 
     // Getters and setters
     public String getPlayerName() {
-        return playerName;
         return playerName;
     }
 
@@ -50,7 +49,6 @@ public class Player {
     }
 
     public int getPoints() {
-        return points;
         return points;
     }
 

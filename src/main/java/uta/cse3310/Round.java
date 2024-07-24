@@ -3,7 +3,7 @@ package uta.cse3310;
 import java.time.LocalDateTime;
 
 public class Round {
-  
+
     private int roundNumber;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -28,8 +28,8 @@ public class Round {
     // End the round
     public void endRound() {
         this.endTime = LocalDateTime.now();
-        this.status = "finished";
-        this.score = calculateScore();
+        this.status = "completed";
+        this.score = calculateScore(); // Assuming score is calculated at the end of the round
     }
 
     // Calculate the score for the round (dummy implementation, adjust as needed)
