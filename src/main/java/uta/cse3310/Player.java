@@ -16,26 +16,29 @@ public class Player {
         this.inventory = "nothing";
     }
 
-    // Methods
+    // Display the player's name
     public String displayName() {
-        return null;
+        return playerName;
     }
 
+    // Display the player's score
     public int displayScore() {
-        return 0;
+        return points;
     }
 
+    // Get the player's status
     public boolean getStatus() {
-        return true;
+        return statusPlayer;
     }
 
-   
+    // Getters and setters
     public String getPlayerName() {
+        return playerName;
         return playerName;
     }
 
     public void setPlayerName(String playerName) {
-       
+        this.playerName = playerName;
     }
 
     public int getPlayerID() {
@@ -43,23 +46,24 @@ public class Player {
     }
 
     public void setPlayerID(String playerID) {
-      
+        this.playerID = playerID;
     }
 
     public int getPoints() {
         return points;
+        return points;
     }
 
     public void setPoints(int points) {
-     
+        this.points = points;
     }
 
     public boolean isStatusPlayer() {
-        return true;
+        return statusPlayer;
     }
 
     public void setStatusPlayer(boolean statusPlayer) {
-       
+        this.statusPlayer = statusPlayer;
     }
 }
 
