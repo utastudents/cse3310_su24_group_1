@@ -1,9 +1,12 @@
+package uta.cse3310;
+
 public class Player {
    
     private String playerName;
-    private String playerID;
+    private int playerID;
     private int points;
     private boolean statusPlayer;
+    private String inventory;
 
     // Constructor
     public Player(String playerName, String playerID) {
@@ -11,6 +14,7 @@ public class Player {
         this.playerID = playerID;
         this.points = 0;
         this.statusPlayer = false; 
+        this.inventory = "nothing";
     }
 
     // Display the player's name
