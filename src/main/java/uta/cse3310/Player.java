@@ -8,6 +8,7 @@ public class Player {
     private boolean statusPlayer;
     private String inventory;
 
+    // Constructor
     public Player(String playerName, int playerID) {
         this.playerName = playerName;
         this.playerID = playerID;
@@ -44,7 +45,7 @@ public class Player {
         return playerID;
     }
 
-    public void setPlayerID(String playerID) {
+    public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 
