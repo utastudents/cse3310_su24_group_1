@@ -9,7 +9,7 @@ public class Player {
     private String inventory;
 
     // Constructor
-    public Player(String playerName, String playerID) {
+    public Player(String playerName, int playerID) {
         this.playerName = playerName;
         this.playerID = playerID;
         this.points = 0;
@@ -41,11 +41,11 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public String getPlayerID() {
+    public int getPlayerID() {
         return playerID;
     }
 
-    public void setPlayerID(String playerID) {
+    public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 
