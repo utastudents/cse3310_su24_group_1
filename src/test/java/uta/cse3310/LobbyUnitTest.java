@@ -18,7 +18,7 @@ public class LobbyUnitTest extends TestCase {
      * @return the suite of tests being tested
      */
     public static Test suite() {
-        return new TestSuite(GameUnitTest.class);
+        return new TestSuite(LobbyUnitTest.class);
     }
 
     public void testLobby() {
