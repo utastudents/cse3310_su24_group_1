@@ -62,13 +62,12 @@ import com.google.gson.GsonBuilder;
 
 public class App extends WebSocketServer {
 
-  // All games currently underway on this server are stored in
-  // the vector ActiveGames
-  private Vector<Game> ActiveGames = new Vector<Game>();
-  private Vector<Lobby> lobbies = new Vector<Lobby>();
+  // All lobbies currently underway on this server are stored in
+  // the vector ActiveLobbies
+  private Vector<Lobby> ActiveLobbies = new Vector<Lobby>();
 
   private int lobbyId = 1;
-  private int GameId = 1;
+  // private int GameId = 1;
 
   private int connectionId = 0;
 
@@ -95,46 +94,52 @@ public class App extends WebSocketServer {
 
     System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected");
 
-    ServerEvent E = new ServerEvent();
-
     // search for a game needing a player
-    Game G = null;
-    for (Game i : ActiveGames) {
-      if (i.Players == uta.cse3310.PlayerType.XPLAYER) {
-        G = i;
+    Lobby L = null;
+    for (Lobby i : ActiveLobbies) {
+      if (i.getPlayerCount() >= 1 && i.getPlayerCount() < 4) {
+        L = i;
         System.out.println("found a match");
       }
     }
 
-    // No matches ? Create a new Game.
-    if (G == null) {
-      G = new Game(stats);
-      G.GameId = GameId;
-      GameId++;
+    // No matches ? Create a new Lobby.
+    if (L == null) {
+      L = new Lobby();
+      L.setLobbyId(lobbyId);
+      lobbyId++;
       // Add the first player
-      G.Players = PlayerType.XPLAYER;
-      ActiveGames.add(G);
+      Player newPlayer = new Player("name", connectionId);
+      L.players.add(newPlayer);
+      ActiveLobbies.add(L);
       System.out.println(" creating a new Game");
-    } else {
-      // join an existing game
+    } 
+    else if(L.getGameStatus() == false) {
+      // join an existing Lobby
       System.out.println(" not a new game");
-      G.Players = PlayerType.OPLAYER;
-      G.StartGame();
+      Player newPlayer = new Player("name", connectionId);
+      L.players.add(newPlayer);
+    }
+    else {
+      L = new Lobby();
+      L.setLobbyId(lobbyId);
+      lobbyId++;
+      // Add the first player
+      Player newPlayer = new Player("name", connectionId);
+      L.players.add(newPlayer);
+      ActiveLobbies.add(L);
+      System.out.println(" creating a new Game");
     }
 
-    // create an event to go to only the new player
-    E.YouAre = G.Players;
-    E.GameId = G.GameId;
-
-    // allows the websocket to give us the Game when a message arrives..
-    // it stores a pointer to G, and will give that pointer back to us
+    // allows the websocket to give us the Lobby when a message arrives..
+    // it stores a pointer to L, and will give that pointer back to us
     // when we ask for it
-    conn.setAttachment(G);
+    conn.setAttachment(L);
 
     Gson gson = new Gson();
 
     // Note only send to the single connection
-    String jsonString = gson.toJson(E);
+    String jsonString = gson.toJson(L);
     conn.send(jsonString);
     System.out
         .println("> " + Duration.between(startTime, Instant.now()).toMillis() + " " + connectionId + " "
@@ -144,7 +149,7 @@ public class App extends WebSocketServer {
     stats.setRunningTime(Duration.between(startTime, Instant.now()).toSeconds());
 
     // The state of the game has changed, so lets send it to everyone
-    jsonString = gson.toJson(G);
+    jsonString = gson.toJson(L);
     System.out
         .println("< " + Duration.between(startTime, Instant.now()).toMillis() + " " + "*" + " " + escape(jsonString));
     broadcast(jsonString);
@@ -155,8 +160,8 @@ public class App extends WebSocketServer {
   public void onClose(WebSocket conn, int code, String reason, boolean remote) {
     System.out.println(conn + " has closed");
     // Retrieve the game tied to the websocket connection
-    Game G = conn.getAttachment();
-    G = null;
+    Lobby L = conn.getAttachment();
+    L = null;
   }
 
   @Override
@@ -168,19 +173,18 @@ public class App extends WebSocketServer {
     // A UserEvent is all that is allowed at this point
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
-    UserEvent U = gson.fromJson(message, UserEvent.class);
 
     // Update the running time
     stats.setRunningTime(Duration.between(startTime, Instant.now()).toSeconds());
 
     // Get our Game Object
-    Game G = conn.getAttachment();
-    G.Update(U);
+    Lobby L = conn.getAttachment();
+    //L.Update();
 
     // send out the game state every time
     // to everyone
     String jsonString;
-    jsonString = gson.toJson(G);
+    jsonString = gson.toJson(L);
 
     System.out
         .println("> " + Duration.between(startTime, Instant.now()).toMillis() + " " + "*" + " " + escape(jsonString));
