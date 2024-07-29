@@ -17,16 +17,6 @@ public class Player {
         this.inventory = "nothing";
     }
 
-    // Display the player's name
-    public String displayName() {
-        return playerName;
-    }
-
-    // Display the player's score
-    public int displayScore() {
-        return points;
-    }
-
     // Get the player's status
     public boolean getStatus() {
         return statusPlayer;
