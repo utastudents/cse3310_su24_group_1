@@ -23,7 +23,11 @@ public class Round {
     public void startRound() {
         this.startTime = LocalDateTime.now();
         this.status = "in progress";
+        this.startTime = LocalDateTime.now();
+        this.status = "in progress";
     }
+
+   
 
    
     public void endRound() {
@@ -31,6 +35,8 @@ public class Round {
         this.status = "completed";
         this.score = calculateScore(); // Assuming score is calculated at the end of the round
     }
+
+   
 
    
     public int calculateScore() {
