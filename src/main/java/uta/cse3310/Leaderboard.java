@@ -59,20 +59,5 @@ public class Leaderboard {
             return playerName + ": " + score;
         }
     }
-
-    // Test the Leaderboard class
-    public static void main(String[] args) {
-        Leaderboard lb = new Leaderboard();
-        lb.addScore("Alice", 100);
-        lb.addScore("Bob", 200);
-        lb.addScore("Charlie", 150);
-        lb.addScore("Diana", 180);
-        lb.addScore("Eve", 130);
-        lb.addScore("Frank", 220); // This should replace the lowest score (Alice)
-
-        List<PlayerScore> topScores = lb.getTopScores();
-        for (PlayerScore ps : topScores) {
-            System.out.println(ps);
-        }
-    }
 }
+
