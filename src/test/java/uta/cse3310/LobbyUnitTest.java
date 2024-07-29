@@ -30,6 +30,9 @@ public class LobbyUnitTest extends TestCase {
 
         L.gameStart();
         L.displayPlayers();
+        L.setPlayerCount();
+
+        assertEquals(1, L.getPlayerCount());
 
         // test with a second player added in
         Player p2 = new Player("JaneDoe", 2);
@@ -37,5 +40,11 @@ public class LobbyUnitTest extends TestCase {
 
         L.gameStart();
         L.displayPlayers();
+        L.setPlayerCount();
+
+        assertEquals(2, L.getPlayerCount());
+
+        // test leaderboard after 2 players are added
+        L.displayLeaderboard();
     }
 }
