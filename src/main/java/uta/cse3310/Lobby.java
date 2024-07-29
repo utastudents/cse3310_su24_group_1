@@ -1,5 +1,6 @@
 package uta.cse3310;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
@@ -10,10 +11,18 @@ public class Lobby {
     private Leaderboard leaderboard;
 
     public Lobby() {
-        this.players = null;
+        this.players = new ArrayList<Player>();
         this.gameStatus = false;
         this.playerCount = 0;
         this.lobbyId = 0;
+        this.leaderboard = new Leaderboard();
+    }
+
+    public Lobby(int lobbyId) {
+        this.players = new ArrayList<Player>();
+        this.gameStatus = false;
+        this.playerCount = 0;
+        this.lobbyId = lobbyId;
         this.leaderboard = new Leaderboard();
     }
 
@@ -21,20 +30,28 @@ public class Lobby {
     public void gameStart() {
         if(playerCount >= 2 && playerCount <= 4) {
             Gameplay G = new Gameplay();
+            gameStatus = true;
         }
     }
 
     // shows in a list the current players in the lobby
     public void displayPlayers() {
+        int playerNum = 1;
         for(Player p : players) {
             // print each name in command line
-            System.out.println(p.getPlayerName());
+            System.out.println(playerNum + ". " + p.getPlayerName());
+            playerNum++;
         }
     }
 
     // displays leaderboard on the side of lobby to show all players' scores from server
     public void displayLeaderboard() {
-        
+        int playerNum = 1;
+        for(Player p : players) {
+            // print each username and their respective score into command line
+            System.out.println(playerNum + ". " + p.getPlayerName() + " Score: " + p.getPoints());
+            playerNum++;
+        }
     }
 
     public int getLobbyId() {
@@ -47,6 +64,13 @@ public class Lobby {
 
     public int getPlayerCount() {
         return playerCount;
+    }
+
+    public void setPlayerCount() {
+        playerCount = 0;
+        for(Player p : players) {
+            playerCount += 1;
+        }
     }
 
     public Boolean getGameStatus() {
