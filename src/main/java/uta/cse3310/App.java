@@ -94,7 +94,7 @@ public class App extends WebSocketServer {
 
     System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected");
 
-    // search for a game needing a player
+    // search for a lobby needing a player
     Lobby L = null;
     for (Lobby i : ActiveLobbies) {
       if (i.getPlayerCount() >= 1 && i.getPlayerCount() < 4) {
@@ -105,8 +105,7 @@ public class App extends WebSocketServer {
 
     // No matches ? Create a new Lobby.
     if (L == null) {
-      L = new Lobby();
-      L.setLobbyId(lobbyId);
+      L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
       Player newPlayer = new Player("name", connectionId);
@@ -121,8 +120,7 @@ public class App extends WebSocketServer {
       L.players.add(newPlayer);
     }
     else {
-      L = new Lobby();
-      L.setLobbyId(lobbyId);
+      L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
       Player newPlayer = new Player("name", connectionId);
