@@ -110,6 +110,7 @@ public class App extends WebSocketServer {
       // Add the first player
       Player newPlayer = new Player("name", connectionId);
       L.players.add(newPlayer);
+      L.setPlayerCount();
       ActiveLobbies.add(L);
       System.out.println(" creating a new Game");
     } 
@@ -118,6 +119,7 @@ public class App extends WebSocketServer {
       System.out.println(" not a new game");
       Player newPlayer = new Player("name", connectionId);
       L.players.add(newPlayer);
+      L.setPlayerCount();
     }
     else {
       L = new Lobby(lobbyId);
@@ -125,6 +127,7 @@ public class App extends WebSocketServer {
       // Add the first player
       Player newPlayer = new Player("name", connectionId);
       L.players.add(newPlayer);
+      L.setPlayerCount();
       ActiveLobbies.add(L);
       System.out.println(" creating a new Game");
     }
