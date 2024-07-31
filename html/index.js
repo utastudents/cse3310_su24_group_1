@@ -1,52 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Turn of Destiny</title>
-        <link rel="stylesheet" href="./style.css">
-    </head>
-    <body>
-        <div class = "header">
-            <h1>Turn of Destiny</h1>
-            <label id="topMessage"></label>
-        </div>
-        <div class = "body">
-            <div class = "left">
-                <p>Please type in a username</p>
-                <form>
-                    <label for = "username">Username:</label><br>
-                    <input type = "text" id = "username" name = "username"><br>
-                    <button type = "button" id = "submit" onclick = nameSubmit(username)>Submit Username</button><br>
-                </form>
-                <button type = "button" id = "create-lobby" onclick = >Create New Lobby</button><br>
-                <button type = "button" class = "join-lobby" id = "join-lobby1" onclick = >Join Lobby 1</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby2" onclick = >Join Lobby 2</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby3" onclick = >Join Lobby 3</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button>
-                <!-- <button type = "button">Join lobby</button> -->
-            </div>
-            <div class = "right">
-                <h2 class = "leaderboard-title">Leaderboard</h2><br>
-                <p class = "player">1.</p><br>
-                <p class = "player">2.</p><br>
-                <p class = "player">3.</p><br>
-                <p class = "player">4.</p><br>
-                <p class = "player">5.</p><br>
-            </div>
-        </div>
-        
-        <label id="timeMsg"></label>
-        <label id="statMsg"></label>
-
-        <!-- <footer class = "footer">
-            <p>text</p>
-        </footer> -->
-
-	    <script>
-            var idx = -1;
+var idx = -1;
             var gameid = -1;
             class UserEvent {
                 Button = -1;
@@ -138,6 +90,11 @@
                 connection.send(JSON.stringify(U));
                 console.log(JSON.stringify(U))
             }
-        </script>
-    </body>
-</html>
+
+function nameSubmit() {
+    var usernameInput = document.getElementById("username").value;
+
+    // alert(usernameInput);
+
+    console.log(usernameInput);
+}
