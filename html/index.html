@@ -28,11 +28,11 @@
                 <button type = "button" class = "join-lobby" id = "join-lobby3" onclick = >Join Lobby 3</button>
                 <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
                 <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button><br> -->
-                <button type = "button" id = "start-game" onclick = gameStart()>Start Game</button>
+                <button type = "button" id = "startGame" onclick = gameStart()>Start Game</button>
                 <!-- <button type = "button">Join lobby</button> -->
             </div>
             <div class = "right">
-                <h2 class = "leaderboard-title">Leaderboard</h2><br>
+                <h2 class = "leaderboardTitle">Leaderboard</h2><br>
                 <p class = "player">1.</p><br>
                 <p class = "player">2.</p><br>
                 <p class = "player">3.</p><br>
@@ -42,20 +42,44 @@
         </div>
 
         <div class = "body" id = "gameScreen">
-            <div class = "left">
-                <table>
-                    <tr>
-
-                        <td><p>T</p></td>
-                        <td><p>E</p></td>
-                        <td><p>S</p></td>
-                        <td><p>T</p></td>
-
-                    </tr>
-                </table>
+            <div class = "left2">
+                <div class = "left" id = "wordDisplay">
+                    <table>
+                        <tr>
+    
+                            <td><p>T</p></td>
+                            <td><p>E</p></td>
+                            <td><p>S</p></td>
+                            <td><p>T</p></td>
+    
+                        </tr>
+                        <tr>
+    
+                            <td><p>T</p></td>
+                            <td><p>E</p></td>
+                            <td><p>S</p></td>
+                            <td><p>T</p></td>
+    
+                        </tr>
+                        <tr>
+    
+                            <td><p>T</p></td>
+                            <td><p>E</p></td>
+                            <td><p>S</p></td>
+                            <td><p>T</p></td>
+    
+                        </tr>
+                    </table>
+                </div>
+                <div class = "left" id = "roundStatus">
+                    <h1>round status updates here</h1>
+                </div>
+                <div class = "left" id = "gameInput">
+                    <h1>user inputs should be here</h1>
+                </div>
             </div>
             <div class = "right">
-                <h2 class = "leaderboard-title">Leaderboard</h2><br>
+                <h2 class = "leaderboardTitle">Leaderboard</h2><br>
                 <p class = "player">1.</p><br>
                 <p class = "player">2.</p><br>
                 <p class = "player">3.</p><br>

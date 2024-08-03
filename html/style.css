@@ -83,7 +83,7 @@ button:hover {
     opacity: 0.9;
 }
 
-.right .leaderboard-title {
+.right .leaderboardTitle {
     background-color: darkcyan;
     padding: 10px;
     border-radius: 4px;
@@ -96,4 +96,23 @@ button:hover {
 
 #gameScreen {
     display: none;
+}
+
+.left2 {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
+#wordDisplay {
+    margin: 10px;
+
+}
+
+#roundStatus {
+    margin: 10px;
+}
+
+#gameInput {
+    margin: 10px;
 }
