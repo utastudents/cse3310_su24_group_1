@@ -110,7 +110,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("name", connectionId);
+      Player newPlayer = new Player("", connectionId);
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -121,7 +121,7 @@ public class App extends WebSocketServer {
     else if(L.getGameStatus() == false) {
       // join an existing Lobby
       System.out.println("NOT A NEW LOBBY");
-      Player newPlayer = new Player("name", connectionId);
+      Player newPlayer = new Player("", connectionId);
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -131,7 +131,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("name", connectionId);
+      Player newPlayer = new Player("", connectionId);
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -144,7 +144,6 @@ public class App extends WebSocketServer {
     // it stores a pointer to L, and will give that pointer back to us
     // when we ask for it
     conn.setAttachment(L);
-    conn.setAttachment(connectionId);
 
     // Note only send to the single connection
     String jsonString = gson.toJson(L);
@@ -169,13 +168,6 @@ public class App extends WebSocketServer {
     System.out.println(conn + " has closed");
     // Retrieve the game tied to the websocket connection
     Lobby L = conn.getAttachment();
-    int connLeft = conn.getAttachment();
-    for(Player p : L.players) {
-      if(p.getPlayerID() == connLeft) {
-        L.players.remove(p);
-        L.setPlayerCount();
-      }
-    }
     L = null;
   }
 
@@ -189,15 +181,21 @@ public class App extends WebSocketServer {
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
 
-    // When a user submits their username
-    Player P = gson.fromJson(message, Player.class);
-
     // Update the running time
     stats.setRunningTime(Duration.between(startTime, Instant.now()).toSeconds());
 
     // Get our Game Object
     Lobby L = conn.getAttachment();
     //L.Update();
+    
+    // When a user submits their username
+    Player P = gson.fromJson(message, Player.class);
+    for (Player p : L.players) {
+      if(p.getPlayerID() == P.getPlayerID()) {
+        p.setPlayerName(P.getPlayerName());
+        System.out.println(p.getPlayerName());
+      }
+    }
 
     // send out the game state every time
     // to everyone

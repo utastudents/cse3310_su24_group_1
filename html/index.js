@@ -1,12 +1,12 @@
-var idx = -1;
+var id = -1;
 var lobbyid = -1;
-/* class Player {
+class Player {
     playerName = "";
     playerID = -1;
     points = -1;
     statusPlayer = false;
     inventory = "";
-} */
+}
 
 var connection = null;
         
@@ -39,6 +39,8 @@ connection.onmessage = function (evt) {
             console.log("Lobby ID retrieved successfully");
             document.getElementById("topMessage").innerHTML = "Lobby: " + t;
         }
+
+        lobbyid = obj.lobbyId;
     }
     else if('playerID' in obj) {
         var t = obj.playerID;
@@ -46,6 +48,8 @@ connection.onmessage = function (evt) {
             console.log("Player ID retrieved successfully");
             document.getElementById("topMessage2").innerHTML = "Player: " + t;
         }
+
+        id = obj.playerID;
     }
     /* else if ('CurrentTurn' in obj) {
         // show statistics to everyone
@@ -59,12 +63,20 @@ connection.onmessage = function (evt) {
 
 function nameSubmit() {
     var usernameInput = document.getElementById("username").value;
-
-    alert(usernameInput);
-
     console.log(usernameInput);
+    //alert(usernameInput);
+
+    P = new Player();
+    P.playerName = usernameInput;
+    P.playerID = id;
+    P.points = 0;
+
+    connection.send(JSON.stringify(P));
+    console.log(JSON.stringify(P));
 }
 
 function gameStart() {
+    var lobbyScreen = document.getElementById("lobbyScreen");
 
+    lobbyScreen.style.display = "none";
 }
