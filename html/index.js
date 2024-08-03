@@ -1,5 +1,13 @@
 var idx = -1;
 var lobbyid = -1;
+/* class Player {
+    playerName = "";
+    playerID = -1;
+    points = -1;
+    statusPlayer = false;
+    inventory = "";
+} */
+
 var connection = null;
         
 var serverUrl;
@@ -32,6 +40,13 @@ connection.onmessage = function (evt) {
             document.getElementById("topMessage").innerHTML = "Lobby: " + t;
         }
     }
+    else if('playerID' in obj) {
+        var t = obj.playerID;
+        if(t) {
+            console.log("Player ID retrieved successfully");
+            document.getElementById("topMessage2").innerHTML = "Player: " + t;
+        }
+    }
     /* else if ('CurrentTurn' in obj) {
         // show statistics to everyone
         var t = obj.Stats;
@@ -45,7 +60,11 @@ connection.onmessage = function (evt) {
 function nameSubmit() {
     var usernameInput = document.getElementById("username").value;
 
-    // alert(usernameInput);
+    alert(usernameInput);
 
     console.log(usernameInput);
+}
+
+function gameStart() {
+
 }
