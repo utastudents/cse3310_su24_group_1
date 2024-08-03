@@ -94,7 +94,6 @@ button:hover {
     text-align: left;
 }
 
-/* .footer {
-    padding: 20px;
-    background-color: pink;
-} */
+#gameScreen {
+    display: none;
+}

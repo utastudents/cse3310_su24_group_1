@@ -77,6 +77,8 @@ function nameSubmit() {
 
 function gameStart() {
     var lobbyScreen = document.getElementById("lobbyScreen");
+    var gameScreen = document.getElementById("gameScreen");
 
     lobbyScreen.style.display = "none";
+    gameScreen.style.display = "flex";
 }
