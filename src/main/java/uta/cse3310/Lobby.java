@@ -29,7 +29,7 @@ public class Lobby {
     // allows for game to start once there are at least 2 players in lobby
     public void gameStart() {
         if(playerCount >= 2 && playerCount <= 4) {
-            Gameplay G = new Gameplay();
+            Gameplay G = new Gameplay(players);
             gameStatus = true;
         }
     }
