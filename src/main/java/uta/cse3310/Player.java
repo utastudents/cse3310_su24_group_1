@@ -14,7 +14,7 @@ public class Player {
         this.playerID = playerID;
         this.points = 0;
         this.statusPlayer = false; 
-        this.inventory = "nothing";
+        this.inventory = "";
     }
 
     // Get the player's status
