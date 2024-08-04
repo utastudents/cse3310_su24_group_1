@@ -15,21 +15,29 @@
             <label id="topMessage2"></label>
         </div>
         <div class = "body" id = "lobbyScreen">
-            <div class = "left">
-                <p>Please type in a username</p>
-                <form>
-                    <label for = "username">Username:</label><br>
-                    <input type = "text" id = "username" name = "username" value = ""><br>
-                    <button type = "button" id = "submit" onclick = nameSubmit()>Submit Username</button><br>
-                </form>
-                <!-- <button type = "button" id = "create-lobby" onclick = >Create New Lobby</button><br>
-                <button type = "button" class = "join-lobby" id = "join-lobby1" onclick = >Join Lobby 1</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby2" onclick = >Join Lobby 2</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby3" onclick = >Join Lobby 3</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
-                <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button><br> -->
-                <button type = "button" id = "startGame" onclick = gameStart()>Start Game</button>
-                <!-- <button type = "button">Join lobby</button> -->
+            <div class = "left1">
+                <div class = "left">
+                    <h4>Please type in a username</h4>
+                    <form>
+                        <input type = "text" id = "username" name = "username" value = ""><br>
+                        <button type = "button" id = "submit" onclick = nameSubmit()>Submit Username</button><br>
+                    </form>
+                    <!-- <button type = "button" id = "create-lobby" onclick = >Create New Lobby</button><br>
+                    <button type = "button" class = "join-lobby" id = "join-lobby1" onclick = >Join Lobby 1</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby2" onclick = >Join Lobby 2</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby3" onclick = >Join Lobby 3</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button><br> -->
+                    <button type = "button" id = "startGame" onclick = gameStart()>Start Game</button>
+                    <button type = "button" onclick = gameStartTest()>Test Game</button>
+                    <!-- <button type = "button">Join lobby</button> -->
+                </div>
+                <div class = "left" id = "howTo">
+                    <h2>How to play:</h2><br>
+                    <p>The user must decide between guessing letters or solving the word(s).</p><br>
+                    <p>If the user guesses a letter correctly, they are allowed a spin on the wheel.</p><br>
+                    <p>If the user guesses a word correctly, they are awarded the word's length x 100 points.</p>
+                </div>
             </div>
             <div class = "right">
                 <h2 class = "leaderboardTitle">Leaderboard</h2><br>
@@ -44,46 +52,90 @@
         <div class = "body" id = "gameScreen">
             <div class = "left2">
                 <div class = "left" id = "wordDisplay">
-                    <table>
+                    <!-- Table is updated to display letters after valid user guesses 
+                         Each row is limited to 15 characters and max amount of rows is 3 -->
+                    <table id = "wordTable">
+                        <!-- Each td's id is based on their row and column position 
+                             Example: the first letter would be row 1 column 1 
+                             The id's are used to help change specific "boxes" in the table -->
                         <tr>
     
-                            <td><p>T</p></td>
-                            <td><p>E</p></td>
-                            <td><p>S</p></td>
-                            <td><p>T</p></td>
+                            <td id = "11"><p>T</p></td>
+                            <td id = "12"><p>E</p></td>
+                            <td id = "13"><p>S</p></td>
+                            <td id = "14"><p>T</p></td>
+                            <td id = "15"><p>I</p></td>
+                            <td id = "16"><p>N</p></td>
+                            <td id = "17"><p>G</p></td>
+                            <td id = "18"><p>A</p></td>
+                            <td id = "19"><p>L</p></td>
+                            <td id = "110"><p>I</p></td>
+                            <td id = "111"><p>G</p></td>
+                            <td id = "112"><p>N</p></td>
+                            <td id = "113"><p>I</p></td>
+                            <td id = "114"><p>N</p></td>
+                            <td id = "115"><p>G</p></td>
     
                         </tr>
                         <tr>
     
-                            <td><p>T</p></td>
-                            <td><p>E</p></td>
-                            <td><p>S</p></td>
-                            <td><p>T</p></td>
+                            <td id = "21"><p>T</p></td>
+                            <td id = "22"><p>E</p></td>
+                            <td id = "23"><p>S</p></td>
+                            <td id = "24"><p>T</p></td>
+                            <td id = "25"><p>I</p></td>
+                            <td id = "26"><p>N</p></td>
+                            <td id = "27"><p>G</p></td>
+                            <td id = "28"><p>A</p></td>
+                            <td id = "29"><p>L</p></td>
+                            <td id = "210"><p>I</p></td>
+                            <td id = "211"><p>G</p></td>
+                            <td id = "212"><p>N</p></td>
+                            <td id = "213"><p>I</p></td>
+                            <td id = "214"><p>N</p></td>
+                            <td id = "215"><p>G</p></td>
     
                         </tr>
                         <tr>
     
-                            <td><p>T</p></td>
-                            <td><p>E</p></td>
-                            <td><p>S</p></td>
-                            <td><p>T</p></td>
+                            <td id = "31"><p>T</p></td>
+                            <td id = "32"><p>E</p></td>
+                            <td id = "33"><p>S</p></td>
+                            <td id = "34"><p>T</p></td>
+                            <td id = "35"><p>I</p></td>
+                            <td id = "36"><p>N</p></td>
+                            <td id = "37"><p>G</p></td>
+                            <td id = "38"><p>A</p></td>
+                            <td id = "39"><p>L</p></td>
+                            <td id = "310"><p>I</p></td>
+                            <td id = "311"><p>G</p></td>
+                            <td id = "312"><p>N</p></td>
+                            <td id = "313"><p>I</p></td>
+                            <td id = "314"><p>N</p></td>
+                            <td id = "315"><p>G</p></td>
     
                         </tr>
                     </table>
                 </div>
+                <!-- The roundStatus div is updated to show current player turn, player input validity,
+                     and wheel results -->
                 <div class = "left" id = "roundStatus">
                     <h1>round status updates here</h1>
                 </div>
+                <!-- gameInput div is where the user will be able to input their guesses -->
                 <div class = "left" id = "gameInput">
                     <h1>user inputs should be here</h1>
+                    <form>
+                        <input type = "text" id = "userGuess" name = "userGuess" value = ""><br>
+                    </form>
                 </div>
             </div>
             <div class = "right">
                 <h2 class = "leaderboardTitle">Leaderboard</h2><br>
-                <p class = "player">1.</p><br>
-                <p class = "player">2.</p><br>
-                <p class = "player">3.</p><br>
-                <p class = "player">4.</p><br>
+                <p class = "player">1. John - 1500</p><br>
+                <p class = "player">2. Bob - 700</p><br>
+                <p class = "player">3. Jane - 600</p><br>
+                <p class = "player">4. Dave - 200</p><br>
             </div>
         </div>
         

@@ -1,5 +1,6 @@
 var id = -1;
-var lobbyid = -1;
+var lobbyId = -1;
+var lobbyPlayerCount = -1;
 class Player {
     playerName = "";
     playerID = -1;
@@ -40,7 +41,8 @@ connection.onmessage = function (evt) {
             document.getElementById("topMessage").innerHTML = "Lobby: " + t;
         }
 
-        lobbyid = obj.lobbyId;
+        lobbyId = obj.lobbyId;
+        lobbyPlayerCount = obj.playerCount;
     }
     else if('playerID' in obj) {
         var t = obj.playerID;
@@ -76,6 +78,20 @@ function nameSubmit() {
 }
 
 function gameStart() {
+    var lobbyScreen = document.getElementById("lobbyScreen");
+    var gameScreen = document.getElementById("gameScreen");
+
+    if(lobbyPlayerCount >= 2 && lobbyPlayerCount <= 4) {
+        lobbyScreen.style.display = "none";
+        gameScreen.style.display = "flex";
+
+
+
+        console.log("Game has been started with " + lobbyPlayerCount + " players");
+    }
+}
+
+function gameStartTest() {
     var lobbyScreen = document.getElementById("lobbyScreen");
     var gameScreen = document.getElementById("gameScreen");
 
