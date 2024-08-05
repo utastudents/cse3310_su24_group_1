@@ -1,6 +1,11 @@
 package uta.cse3310;
 
 import java.time.LocalDateTime;
+// Need to implement functions that choose random words from filtered_words.txt and also
+// checks with user guesses (may be implemented here or in Gameplay.java if better choice)
+
+// Also need to have a way the wheel occurs whenever a valid event happens for it to occur
+// example: user guesses a correct character, then they get a wheel spin
 
 public class Round {
   
