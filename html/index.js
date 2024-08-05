@@ -1,3 +1,4 @@
+// global variables and necessary classes to send JSON data to backend are stored here
 var id = -1;
 var lobbyId = -1;
 var lobbyPlayerCount = -1;
@@ -66,21 +67,29 @@ connection.onmessage = function (evt) {
         }
     } */
 }
-
+// nameSubmit() takes the text value given by the user, saves it using the same structure as Player class, and
+// then sending it to the backend to save the user's information
 function nameSubmit() {
     var usernameInput = document.getElementById("username").value;
     console.log(usernameInput);
     //alert(usernameInput);
 
-    P = new Player();
-    P.playerName = usernameInput;
-    P.playerID = id;
-    P.points = 0;
+    if(usernameInput) {
+        P = new Player();
+        P.playerName = usernameInput;
+        P.playerID = id;
+        P.points = 0;
 
-    connection.send(JSON.stringify(P));
-    console.log(JSON.stringify(P));
+        connection.send(JSON.stringify(P));
+        console.log(JSON.stringify(P));
+    }
+    else {
+        // add message here to send to user when username is invalid
+    }
 }
-
+// gameStart() works by hiding the lobby screen and then enabling the game screen to become visible
+// The start also only works when the amount of players is valid (need to add/change function to do this for all
+// players once one person starts or let other players know when someone else has started)
 function gameStart() {
     var lobbyScreen = document.getElementById("lobbyScreen");
     var gameScreen = document.getElementById("gameScreen");
@@ -94,7 +103,7 @@ function gameStart() {
         console.log("Game has been started with " + lobbyPlayerCount + " players");
     }
 }
-
+// gameStartTest() is a temporary function to allow testing the game without the need of a second player
 function gameStartTest() {
     var lobbyScreen = document.getElementById("lobbyScreen");
     var gameScreen = document.getElementById("gameScreen");
@@ -102,7 +111,7 @@ function gameStartTest() {
     lobbyScreen.style.display = "none";
     gameScreen.style.display = "flex";
 }
-
+// sendUserGuess() takes user input to allow for the game to happen (validity checking needs to be added)
 function sendUserGuess() {
     var userGuess = document.getElementById("userGuess").value;
 
@@ -110,7 +119,7 @@ function sendUserGuess() {
 
     UG.playerID = id;
     UG.userGuess = userGuess;
-
+    // The input is only sent if the input is not empty or (valid; needs to be implemented)
     if(userGuess) {
         document.getElementById("userFeedback").innerHTML = "";
         connection.send(JSON.stringify(UG));
@@ -120,3 +129,11 @@ function sendUserGuess() {
         document.getElementById("userFeedback").innerHTML = "Please enter a valid character or word(s)";
     }
 }
+
+/*
+IMPORTANT!: TO DO
+- NEED TO IMPLEMENT FUNCTIONALITY TO SHOW LETTERS AS VALID GUESSES OCCUR
+- NEED TO HAVE A WAY TO SHOW ROUND # AND TO SWITCH TO A NEW ROUND
+- HAVE TO SEND ROUND UPDATES TO ALL PLAYERS
+- (MAY NEED TO WORK ON BOTH FRONTEND AND BACKEND TO IMPLEMENT THESE OR ONE INDIVIDUALLY)
+*/
