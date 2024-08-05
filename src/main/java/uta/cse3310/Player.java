@@ -9,22 +9,12 @@ public class Player {
     private String inventory;
 
     // Constructor
-    public Player(String playerName, String playerID) {
+    public Player(String playerName, int playerID) {
         this.playerName = playerName;
         this.playerID = playerID;
         this.points = 0;
         this.statusPlayer = false; 
-        this.inventory = "nothing";
-    }
-
-    // Display the player's name
-    public String displayName() {
-        return playerName;
-    }
-
-    // Display the player's score
-    public int displayScore() {
-        return points;
+        this.inventory = "";
     }
 
     // Get the player's status
@@ -41,11 +31,11 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public String getPlayerID() {
+    public int getPlayerID() {
         return playerID;
     }
 
-    public void setPlayerID(String playerID) {
+    public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 

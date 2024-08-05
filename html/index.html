@@ -1,120 +1,149 @@
-<head>
-    <meta charset="utf-8">
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Turn of Destiny</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <script src = "./index.js"></script>
+        <div class = "header">
+            <h1>Turn of Destiny</h1>
+            <label id="topMessage"></label>
+            <label id="topMessage2"></label>
+        </div>
+        <div class = "body" id = "lobbyScreen">
+            <div class = "left1">
+                <div class = "left">
+                    <h4>Please type in a username</h4>
+                    <form>
+                        <input type = "text" id = "username" name = "username" value = ""><br>
+                        <button type = "button" id = "submit" onclick = nameSubmit()>Submit Username</button><br>
+                    </form>
+                    <!-- <button type = "button" id = "create-lobby" onclick = >Create New Lobby</button><br>
+                    <button type = "button" class = "join-lobby" id = "join-lobby1" onclick = >Join Lobby 1</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby2" onclick = >Join Lobby 2</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby3" onclick = >Join Lobby 3</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
+                    <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button><br> -->
+                    <button type = "button" id = "startGame" onclick = gameStart()>Start Game</button>
+                    <button type = "button" id = "testGame" onclick = gameStartTest()>Test Game</button>
+                    <!-- <button type = "button">Join lobby</button> -->
+                </div>
+                <div class = "left" id = "howTo">
+                    <!-- This div is just text explaining how the game works -->
+                    <h2>How to play:</h2><br>
+                    <p>The user must decide between guessing letters or solving the word(s).</p><br>
+                    <p>If the user guesses a letter correctly, they are allowed a spin on the wheel.</p><br>
+                    <p>If the user guesses a word correctly, they are awarded the word's length x 100 points.</p>
+                </div>
+            </div>
+            <div class = "right">
+                <!-- This is the all-time leaderboard of all players that have connected -->
+                <h2 class = "leaderboardTitle">Leaderboard</h2><br>
+                <p class = "player">1.</p><br>
+                <p class = "player">2.</p><br>
+                <p class = "player">3.</p><br>
+                <p class = "player">4.</p><br>
+                <p class = "player">5.</p><br>
+            </div>
+        </div>
 
-<label id="topMessage"></label>
-
-<table>
-    <tr>
-
-        <td><input type="button" value="?" id="b1" onclick=buttonclick(0)></input></td>
-        <td><input type="button" value="?" id="b2" onclick=buttonclick(1)></input></td>
-        <td><input type="button" value="?" id="b3" onclick=buttonclick(2)></input></td>
-
-    </tr>
-    <tr>
-
-        <td><input type="button" value="?" id="b4" onclick=buttonclick(3)></input></td>
-        <td><input type="button" value="?" id="b5" onclick=buttonclick(4)></input></td>
-        <td><input type="button" value="?" id="b6" onclick=buttonclick(5)></input></td>
-
-    </tr>
-
-    <tr>
-
-        <td><input type="button" value="?" id="b7" onclick=buttonclick(6)></input></td>
-        <td><input type="button" value="?" id="b8" onclick=buttonclick(7)></input></td>
-        <td><input type="button" value="?" id="b9" onclick=buttonclick(8)></input></td>
-
-    </tr>
-</table>
-
-<label id="timeMsg"></label>
-<label id="statMsg"></label>
-
-<script>
-    var idx = -1;
-    var gameid = -1;
-    class UserEvent {
-        Button = -1;
-        PlayerIdx = 0;
-        GameId = 0;
-    }
-    var connection = null;
-
-    var serverUrl;
-    serverUrl = "ws://" + window.location.hostname +":"+ (parseInt(location.port) + 100);
-    // Create the connection with the server
-    connection = new WebSocket(serverUrl);
-
-    connection.onopen = function (evt) {
-        console.log("open");
-    }
-    connection.onclose = function (evt) {
-        console.log("close");
-        document.getElementById("topMessage").innerHTML = "Server Offline"
-    }
-    const ButtonStateToDisplay = new Map();
-    ButtonStateToDisplay.set("XPLAYER", "X");
-    ButtonStateToDisplay.set("OPLAYER", "O");
-    ButtonStateToDisplay.set("NOPLAYER", " ");
-    connection.onmessage = function (evt) {
-        var msg;
-        msg = evt.data;
-
-        console.log("Message received: " + msg);
-        const obj = JSON.parse(msg);
-
-        if ('YouAre' in obj) {
-            if (obj.YouAre == "XPLAYER") {
-                idx = 0;
-            }
-            else {
-                idx = 1;
-            }
-
-            gameid = obj.GameId;
-        }
-        else if ('CurrentTurn' in obj) {
-            // show statistics to everyone
-            var t = obj.Stats;
-            if (t) {
-                document.getElementById("timeMsg").innerHTML = "elapsed time " + t.RunningTime;
-                document.getElementById("statMsg").innerHTML =
-                    " in progress " + t.GamesInProgress + " XWin " + t.XWins + " OWin " + t.OWins +
-                    " Draw " + t.Draws + " Total " + t.TotalGames;
-            }
-
-            // only pay attention to this game
-            if (gameid == obj.GameId) {
-                // button state to display values
-
-                document.getElementById("b1").value = ButtonStateToDisplay.get(obj.Button[0]);
-                document.getElementById("b2").value = ButtonStateToDisplay.get(obj.Button[1]);
-                document.getElementById("b3").value = ButtonStateToDisplay.get(obj.Button[2]);
-                document.getElementById("b4").value = ButtonStateToDisplay.get(obj.Button[3]);
-                document.getElementById("b5").value = ButtonStateToDisplay.get(obj.Button[4]);
-                document.getElementById("b6").value = ButtonStateToDisplay.get(obj.Button[5]);
-                document.getElementById("b7").value = ButtonStateToDisplay.get(obj.Button[6]);
-                document.getElementById("b8").value = ButtonStateToDisplay.get(obj.Button[7]);
-                document.getElementById("b9").value = ButtonStateToDisplay.get(obj.Button[8]);
-
-
-                // the message line
-                document.getElementById("topMessage").innerHTML = obj.Msg[idx];
-            }
-        }
-    }
-
-    function buttonclick(i) {
-        U = new UserEvent();
-        U.Button = i;
-        if (idx == 0)
-            U.PlayerIdx = "XPLAYER";
-        else
-            U.PlayerIdx = "OPLAYER";
-        U.GameId = gameid;
-        connection.send(JSON.stringify(U));
-        console.log(JSON.stringify(U))
-    }
-</script>
+        <div class = "body" id = "gameScreen">
+            <div class = "left2">
+                <div class = "left" id = "wordDisplay">
+                    <!-- Table is updated to display letters after valid user guesses 
+                         Each row is limited to 15 characters and max amount of rows is 3 -->
+                    <table id = "wordTable">
+                        <!-- Each td's id is based on their row and column position 
+                             Example: the first letter would be row 1 column 1 
+                             The id's are used to help change specific "boxes" in the table -->
+                        <tr>
+    
+                            <td id = "11"><p>T</p></td>
+                            <td id = "12"><p>E</p></td>
+                            <td id = "13"><p>S</p></td>
+                            <td id = "14"><p>T</p></td>
+                            <td id = "15"><p>I</p></td>
+                            <td id = "16"><p>N</p></td>
+                            <td id = "17"><p>G</p></td>
+                            <td id = "18"><p>A</p></td>
+                            <td id = "19"><p>L</p></td>
+                            <td id = "110"><p>I</p></td>
+                            <td id = "111"><p>G</p></td>
+                            <td id = "112"><p>N</p></td>
+                            <td id = "113"><p>I</p></td>
+                            <td id = "114"><p>N</p></td>
+                            <td id = "115"><p>G</p></td>
+    
+                        </tr>
+                        <tr>
+    
+                            <td id = "21"><p>T</p></td>
+                            <td id = "22"><p>E</p></td>
+                            <td id = "23"><p>S</p></td>
+                            <td id = "24"><p>T</p></td>
+                            <td id = "25"><p>I</p></td>
+                            <td id = "26"><p>N</p></td>
+                            <td id = "27"><p>G</p></td>
+                            <td id = "28"><p>A</p></td>
+                            <td id = "29"><p>L</p></td>
+                            <td id = "210"><p>I</p></td>
+                            <td id = "211"><p>G</p></td>
+                            <td id = "212"><p>N</p></td>
+                            <td id = "213"><p>I</p></td>
+                            <td id = "214"><p>N</p></td>
+                            <td id = "215"><p>G</p></td>
+    
+                        </tr>
+                        <tr>
+    
+                            <td id = "31"><p>T</p></td>
+                            <td id = "32"><p>E</p></td>
+                            <td id = "33"><p>S</p></td>
+                            <td id = "34"><p>T</p></td>
+                            <td id = "35"><p>I</p></td>
+                            <td id = "36"><p>N</p></td>
+                            <td id = "37"><p>G</p></td>
+                            <td id = "38"><p>A</p></td>
+                            <td id = "39"><p>L</p></td>
+                            <td id = "310"><p>I</p></td>
+                            <td id = "311"><p>G</p></td>
+                            <td id = "312"><p>N</p></td>
+                            <td id = "313"><p>I</p></td>
+                            <td id = "314"><p>N</p></td>
+                            <td id = "315"><p>G</p></td>
+    
+                        </tr>
+                    </table>
+                </div>
+                <!-- The roundStatus div is updated to show current player turn, player input validity,
+                     and wheel results -->
+                <div class = "left" id = "roundStatus">
+                    <h1>round status updates here</h1>
+                </div>
+                <!-- gameInput div is where the user will be able to input their guesses -->
+                <div class = "left" id = "gameInput">
+                    <h1>user inputs should be here</h1>
+                    <p id = "userFeedback"></p>
+                    <form>
+                        <input type = "text" id = "userGuess" name = "userGuess" value = ""><br>
+                        <button type = "button" id = "submit" onclick = sendUserGuess()>Submit Guess</button><br>
+                    </form>
+                </div>
+            </div>
+            <div class = "right">
+                <!-- This is the leaderboard for the current ongoing game only -->
+                <h2 class = "leaderboardTitle">Leaderboard</h2><br>
+                <p class = "player">1. John - 1500</p><br>
+                <p class = "player">2. Bob - 700</p><br>
+                <p class = "player">3. Jane - 600</p><br>
+                <p class = "player">4. Dave - 200</p><br>
+            </div>
+        </div>
+        
+        <label id="timeMsg"></label>
+    </body>
+</html>

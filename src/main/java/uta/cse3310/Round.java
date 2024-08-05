@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+// Need to implement functions that choose random words from filtered_words.txt and also
+// checks with user guesses (may be implemented here or in Gameplay.java if better choice)
+
+// Also need to have a way the wheel occurs whenever a valid event happens for it to occur
+// example: user guesses a correct character, then they get a wheel spin
 
 public class Round {
 
@@ -45,6 +50,8 @@ public class Round {
     public void startRound() {
         this.startTime = LocalDateTime.now();
         this.status = "in progress";
+        this.startTime = LocalDateTime.now();
+        this.status = "in progress";
         chooseRandomWord();
     }
 
@@ -65,9 +72,12 @@ public class Round {
         this.endTime = LocalDateTime.now();
         this.status = "completed";
         this.score = calculateScore(); // Assuming score is calculated at the end of the round
+        this.status = "completed";
+        this.score = calculateScore(); // Assuming score is calculated at the end of the round
     }
 
     public int calculateScore() {
+        // Example score calculation based on duration (seconds) - replace with actual logic
         // Example score calculation based on duration (seconds) - replace with actual logic
         if (startTime != null && endTime != null) {
             return (int) java.time.Duration.between(startTime, endTime).getSeconds();
@@ -76,6 +86,7 @@ public class Round {
         }
     }
 
+    // Getters and setters
     // Getters and setters
     public int getRoundNumber() {
         return roundNumber;
