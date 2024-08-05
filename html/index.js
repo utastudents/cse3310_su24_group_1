@@ -8,6 +8,10 @@ class Player {
     statusPlayer = false;
     inventory = "";
 }
+class UserGuess {
+    playerID = -1;
+    userGuess = "";
+}
 
 var connection = null;
         
@@ -97,4 +101,22 @@ function gameStartTest() {
 
     lobbyScreen.style.display = "none";
     gameScreen.style.display = "flex";
+}
+
+function sendUserGuess() {
+    var userGuess = document.getElementById("userGuess").value;
+
+    UG = new UserGuess();
+
+    UG.playerID = id;
+    UG.userGuess = userGuess;
+
+    if(userGuess) {
+        document.getElementById("userFeedback").innerHTML = "";
+        connection.send(JSON.stringify(UG));
+        console.log(JSON.stringify(UG));
+    }
+    else {
+        document.getElementById("userFeedback").innerHTML = "Please enter a valid character or word(s)";
+    }
 }

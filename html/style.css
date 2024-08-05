@@ -82,6 +82,10 @@ body {
     color: black;
 }
 
+#testGame {
+    color: black;
+}
+
 button:hover {
     background-color: darkcyan;
     color: white;
@@ -143,4 +147,8 @@ button:hover {
 
 #gameInput {
     margin: 10px;
+}
+
+#userGuess {
+    color: black;
 }

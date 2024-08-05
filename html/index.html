@@ -29,7 +29,7 @@
                     <button type = "button" class = "join-lobby" id = "join-lobby4" onclick = >Join Lobby 4</button>
                     <button type = "button" class = "join-lobby" id = "join-lobby5" onclick = >Join Lobby 5</button><br> -->
                     <button type = "button" id = "startGame" onclick = gameStart()>Start Game</button>
-                    <button type = "button" onclick = gameStartTest()>Test Game</button>
+                    <button type = "button" id = "testGame" onclick = gameStartTest()>Test Game</button>
                     <!-- <button type = "button">Join lobby</button> -->
                 </div>
                 <div class = "left" id = "howTo">
@@ -125,8 +125,10 @@
                 <!-- gameInput div is where the user will be able to input their guesses -->
                 <div class = "left" id = "gameInput">
                     <h1>user inputs should be here</h1>
+                    <p id = "userFeedback"></p>
                     <form>
                         <input type = "text" id = "userGuess" name = "userGuess" value = ""><br>
+                        <button type = "button" id = "submit" onclick = sendUserGuess()>Submit Guess</button><br>
                     </form>
                 </div>
             </div>
