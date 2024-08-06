@@ -25,7 +25,7 @@ public class LobbyUnitTest extends TestCase {
         Lobby L = new Lobby();
 
         // test whenever there is only 1 player
-        Player p1 = new Player("JohnDoe", 1);
+        Player p1 = new Player("JohnDoe", 1, "testConn1");
         L.players.add(p1);
 
         L.gameStart();
@@ -35,7 +35,7 @@ public class LobbyUnitTest extends TestCase {
         assertEquals(1, L.getPlayerCount());
 
         // test with a second player added in
-        Player p2 = new Player("JaneDoe", 2);
+        Player p2 = new Player("JaneDoe", 2, "testConn2");
         L.players.add(p2);
 
         L.gameStart();

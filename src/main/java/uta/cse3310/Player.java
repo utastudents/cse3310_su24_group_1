@@ -4,14 +4,16 @@ public class Player {
 
     private String playerName;
     private int playerID;
+    private String conn;
     private int points;
     private boolean statusPlayer;
     private String inventory;
 
     // Constructor
-    public Player(String playerName, int playerID) {
+    public Player(String playerName, int playerID, String conn) {
         this.playerName = playerName;
         this.playerID = playerID;
+        this.conn = conn;
         this.points = 0;
         this.statusPlayer = false; 
         this.inventory = "";
@@ -37,6 +39,10 @@ public class Player {
 
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
+    }
+
+    public String getConn() {
+        return conn;
     }
 
     public int getPoints() {

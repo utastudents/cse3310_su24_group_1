@@ -67,7 +67,6 @@ public class App extends WebSocketServer {
   private Vector<Lobby> ActiveLobbies = new Vector<Lobby>();
 
   private int lobbyId = 1;
-  // private int GameId = 1;
 
   private int connectionId = 0;
 
@@ -93,6 +92,7 @@ public class App extends WebSocketServer {
     connectionId++;
 
     System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected");
+    System.out.println(conn);
 
     Gson gson = new Gson();
 
@@ -110,7 +110,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -121,7 +121,7 @@ public class App extends WebSocketServer {
     else if(L.getGameStatus() == false) {
       // join an existing Lobby
       System.out.println("NOT A NEW LOBBY");
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -131,7 +131,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -168,6 +168,18 @@ public class App extends WebSocketServer {
     System.out.println(conn + " has closed");
     // Retrieve the game tied to the websocket connection
     Lobby L = conn.getAttachment();
+    for(Player p : L.players) {
+      if(p.getConn().equals(conn.toString())) {
+        System.out.println("Removing player with connection " + p.getConn());
+        L.players.remove(p);
+        L.setPlayerCount();
+        break;
+      }
+    }
+    if(L.getPlayerCount() == 0) {
+      System.out.println("Lobby empty, removing");
+      this.ActiveLobbies.remove(L);
+    }
     L = null;
   }
 
