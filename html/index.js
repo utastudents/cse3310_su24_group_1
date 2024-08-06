@@ -1,10 +1,12 @@
 // global variables and necessary classes to send JSON data to backend are stored here
 var id = -1;
+var conn = "";
 var lobbyId = -1;
 var lobbyPlayerCount = -1;
 class Player {
     playerName = "";
     playerID = -1;
+    conn = "";
     points = -1;
     statusPlayer = false;
     inventory = "";
@@ -57,6 +59,7 @@ connection.onmessage = function (evt) {
         }
 
         id = obj.playerID;
+        conn = obj.conn;
     }
     /* else if ('CurrentTurn' in obj) {
         // show statistics to everyone
@@ -78,6 +81,7 @@ function nameSubmit() {
         P = new Player();
         P.playerName = usernameInput;
         P.playerID = id;
+        P.conn = conn;
         P.points = 0;
 
         connection.send(JSON.stringify(P));
