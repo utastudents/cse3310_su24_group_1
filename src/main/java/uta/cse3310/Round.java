@@ -2,16 +2,11 @@ package uta.cse3310;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-// Need to implement functions that choose random words from filtered_words.txt and also
-// checks with user guesses (may be implemented here or in Gameplay.java if better choice)
-
-// Also need to have a way the wheel occurs whenever a valid event happens for it to occur
-// example: user guesses a correct character, then they get a wheel spin
 
 public class Round {
 
@@ -32,14 +27,19 @@ public class Round {
         this.score = 0;
         this.status = "not started";
         this.random = new Random();
-        loadWordsFromFile("cse3310_su24_group_1/src/filtered_words.txt");
+        loadWordsFromFile("src/filtered_words.txt");
     }
 
     // Load words from the file
     private void loadWordsFromFile(String filePath) {
         try {
-            words = Files.lines(Paths.get(filePath))
-                         .collect(Collectors.toList());
+            Path path = Paths.get(filePath);
+            if (Files.exists(path)) {
+                words = Files.lines(path).collect(Collectors.toList());
+            } else {
+                System.err.println("File not found: " + filePath);
+                words = List.of(); // default to empty list if file not found
+            }
         } catch (IOException e) {
             e.printStackTrace();
             words = List.of(); // default to empty list if file read fails
@@ -48,8 +48,6 @@ public class Round {
 
     // Start the round
     public void startRound() {
-        this.startTime = LocalDateTime.now();
-        this.status = "in progress";
         this.startTime = LocalDateTime.now();
         this.status = "in progress";
         chooseRandomWord();
@@ -68,17 +66,15 @@ public class Round {
         return guess.equalsIgnoreCase(currentWord);
     }
 
+    // End the round
     public void endRound() {
         this.endTime = LocalDateTime.now();
         this.status = "completed";
         this.score = calculateScore(); // Assuming score is calculated at the end of the round
-        this.status = "completed";
-        this.score = calculateScore(); // Assuming score is calculated at the end of the round
     }
 
+    // Calculate score
     public int calculateScore() {
-        // Example score calculation based on duration (seconds) - replace with actual logic
-        // Example score calculation based on duration (seconds) - replace with actual logic
         if (startTime != null && endTime != null) {
             return (int) java.time.Duration.between(startTime, endTime).getSeconds();
         } else {
@@ -86,7 +82,6 @@ public class Round {
         }
     }
 
-    // Getters and setters
     // Getters and setters
     public int getRoundNumber() {
         return roundNumber;
@@ -132,5 +127,6 @@ public class Round {
         return currentWord;
     }
 }
+
 
 
