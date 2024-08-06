@@ -3,23 +3,36 @@ package uta.cse3310;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-public class RoundTest {
+public class RoundTest extends TestCase {
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public RoundTest(String testName) {
+        super(testName);
+    }
+
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite() {
+        return new TestSuite(RoundTest.class);
+    }
 
     private Round round;
     private final String testFilePath = "src/test/resources/test_words.txt"; // Update the path to your test file
 
-    @BeforeEach
     public void setUp() {
         round = new Round(1);
         // Mocking loadWordsFromFile
         round.words = Arrays.asList("apple", "banana", "cherry");
     }
 
-    @Test
     public void testRoundInitialization() {
         assertEquals(1, round.getRoundNumber());
         assertNull(round.getStartTime());
@@ -28,7 +41,6 @@ public class RoundTest {
         assertEquals("not started", round.getStatus());
     }
 
-    @Test
     public void testStartRound() {
         round.startRound();
         assertNotNull(round.getStartTime());
@@ -37,7 +49,6 @@ public class RoundTest {
         assertTrue(round.words.contains(round.getCurrentWord()));
     }
 
-    @Test
     public void testChooseRandomWord() {
         round.startRound();
         String firstWord = round.getCurrentWord();
@@ -50,7 +61,6 @@ public class RoundTest {
         assertTrue(round.words.contains(secondWord));
     }
 
-    @Test
     public void testCheckGuess() {
         round.startRound();
         String chosenWord = round.getCurrentWord();
@@ -58,7 +68,6 @@ public class RoundTest {
         assertFalse(round.checkGuess(chosenWord + "wrong"));
     }
 
-    @Test
     public void testEndRound() {
         round.startRound();
         round.endRound();
@@ -67,14 +76,12 @@ public class RoundTest {
         assertTrue(round.getScore() >= 0);
     }
 
-    @Test
     public void testCalculateScore() {
         round.setStartTime(LocalDateTime.now().minusSeconds(5));
         round.setEndTime(LocalDateTime.now());
         assertEquals(5, round.calculateScore());
     }
 
-    @Test
     public void testRoundFlow() {
         round.startRound();
         assertEquals("in progress", round.getStatus());

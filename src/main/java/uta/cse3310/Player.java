@@ -54,5 +54,13 @@ public class Player {
     public void setStatusPlayer(boolean statusPlayer) {
         this.statusPlayer = statusPlayer;
     }
+
+    public void setInventory(String inventory) {
+        this.inventory = inventory;
+    }
+
+    public String getInventory() {
+        return inventory;
+    }
 }
 

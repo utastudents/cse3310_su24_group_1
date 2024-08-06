@@ -20,9 +20,9 @@ public class Round {
     private LocalDateTime endTime;
     private int score;
     private String status;
-    private List<String> words;
     private String currentWord;
     private Random random;
+    public List<String> words;
 
     // Constructor
     public Round(int roundNumber) {
@@ -56,7 +56,7 @@ public class Round {
     }
 
     // Choose a random word from the list
-    private void chooseRandomWord() {
+    public void chooseRandomWord() {
         if (words != null && !words.isEmpty()) {
             currentWord = words.get(random.nextInt(words.size()));
             System.out.println("Chosen Word: " + currentWord); // For debugging purposes
