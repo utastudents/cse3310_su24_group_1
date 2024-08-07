@@ -128,7 +128,7 @@ public class App extends WebSocketServer {
       L.players.add(newPlayer);
       L.setPlayerCount();
     }
-    else {
+    /*else {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
@@ -139,7 +139,7 @@ public class App extends WebSocketServer {
       L.setPlayerCount();
       ActiveLobbies.add(L);
       System.out.println("MAX AMOUNT OF PLAYERS, CREATING A NEW LOBBY");
-    }
+    }*/
 
     // allows the websocket to give us the Lobby when a message arrives..
     // it stores a pointer to L, and will give that pointer back to us

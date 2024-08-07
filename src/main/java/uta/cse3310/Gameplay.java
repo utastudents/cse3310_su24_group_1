@@ -9,8 +9,8 @@ public class Gameplay {
     public List<Player> players;
     public int currentPlayerIndex;
     public Wheel wheel;
-    public Random random;
-    public Scanner scanner;
+    //public Random random;
+    //public Scanner scanner;
     public Round round;
     public int roundNum;
     public UserEvent userEvent;
@@ -19,8 +19,8 @@ public class Gameplay {
         this.players = players;
         this.currentPlayerIndex = 0;
         this.wheel = new Wheel();
-        this.random = new Random();
-        this.scanner = new Scanner(System.in);
+        //this.random = new Random();
+        //this.scanner = new Scanner(System.in);
         this.roundNum = 1;
         this.userEvent = new UserEvent();
     }
@@ -78,7 +78,7 @@ public class Gameplay {
 
             // Prompt player to guess a letter or solve the puzzle
             System.out.print("Guess a letter or solve the puzzle (g for guess, s for solve): ");
-            String choice = scanner.nextLine();
+            /*String choice = scanner.nextLine();
 
             if (choice.equals("g")) {
                 System.out.print("Enter a letter: ");
@@ -103,11 +103,11 @@ public class Gameplay {
                     System.out.println("Wrong solution.");
                     currentPlayerIndex = (currentPlayerIndex + 1) % players.size(); // Next player's turn
                 }
-            }
+            }*/
         }
     }
 
-    private boolean checkGuess(char guessedLetter) {
+    /*private boolean checkGuess(char guessedLetter) {
         // Implement the logic to check the guessed letter
         // Return true if the guess is correct, false otherwise
         return random.nextBoolean(); // Placeholder logic
@@ -117,7 +117,7 @@ public class Gameplay {
         // Implement the logic to check the solution
         // Return true if the solution is correct, false otherwise
         return random.nextBoolean(); // Placeholder logic
-    }
+    }*/
 
     private Player determineWinner() {
         Player winner = players.get(0);
