@@ -72,10 +72,10 @@ public class Round {
 
     // Choose a random word from the list
     public void chooseRandomWord() {
-        /* this.currentWord1 = "apple"; // for testing purposes
+        this.currentWord1 = "apple"; // for testing purposes
         this.currentWord2 = "banana";
-        this.currentWord3 = "cherries"; */
-        List<String> words = loadWordsFromFile("src/filtered_words.txt");
+        this.currentWord3 = "cherries";
+        /*List<String> words = loadWordsFromFile("src/filtered_words.txt");
         Random random = new Random();
         if (words != null && !words.isEmpty()) {
             int wordsToGuess = random.nextInt(3) + 1;
@@ -98,7 +98,7 @@ public class Round {
             System.out.println("Chosen Word 2: " + currentWord2);
             System.out.println("Chosen Word 3: " + currentWord3);
             
-        }
+        }*/
     }
 
     public void checkChar() {
