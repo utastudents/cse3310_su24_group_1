@@ -34,7 +34,7 @@ connection.onopen = function (evt) {
 
 connection.onclose = function (evt) {
     console.log("close");
-    document.getElementById("topMessage").innerHTML = "Server Offline"
+    document.getElementById("topMessage").innerHTML = "Server Offline";
 }
 
 connection.onmessage = function (evt) {
@@ -65,25 +65,25 @@ connection.onmessage = function (evt) {
         id = obj.playerID;
         conn = obj.conn;
     }
-    else if('validLetters' in obj) {
-        const letters = obj.validLetters;
+    else if('roundNumber' in obj) {
+        const letters = obj.userEvent.validLetters;
         if(letters) {
-            letters.forEach(function updateWordDisplay(value, index, array) {
-                if(value == 0) {document.getElementById("11").innerHTML = obj.charInput;}
-                if(value == 1) {document.getElementById("12").innerHTML = obj.charInput;}
-                if(value == 2) {document.getElementById("13").innerHTML = obj.charInput;}
-                if(value == 3) {document.getElementById("14").innerHTML = obj.charInput;}
-                if(value == 4) {document.getElementById("15").innerHTML = obj.charInput;}
-                if(value == 5) {document.getElementById("16").innerHTML = obj.charInput;}
-                if(value == 6) {document.getElementById("17").innerHTML = obj.charInput;}
-                if(value == 7) {document.getElementById("18").innerHTML = obj.charInput;}
-                if(value == 8) {document.getElementById("19").innerHTML = obj.charInput;}
-                if(value == 9) {document.getElementById("110").innerHTML = obj.charInput;}
-                if(value == 10) {document.getElementById("111").innerHTML = obj.charInput;}
-                if(value == 11) {document.getElementById("112").innerHTML = obj.charInput;}
-                if(value == 12) {document.getElementById("113").innerHTML = obj.charInput;}
-                if(value == 13) {document.getElementById("114").innerHTML = obj.charInput;}
-                if(value == 14) {document.getElementById("115").innerHTML = obj.charInput;}
+            letters.forEach(function updateWordDisplay(value) {
+                if(value == 0) {document.getElementById("11").innerHTML = obj.userEvent.charInput;}
+                else if(value == 1) {document.getElementById("12").innerHTML = obj.userEvent.charInput;}
+                else if(value == 2) {document.getElementById("13").innerHTML = obj.userEvent.charInput;}
+                else if(value == 3) {document.getElementById("14").innerHTML = obj.userEvent.charInput;}
+                else if(value == 4) {document.getElementById("15").innerHTML = obj.userEvent.charInput;}
+                else if(value == 5) {document.getElementById("16").innerHTML = obj.userEvent.charInput;}
+                else if(value == 6) {document.getElementById("17").innerHTML = obj.userEvent.charInput;}
+                else if(value == 7) {document.getElementById("18").innerHTML = obj.userEvent.charInput;}
+                else if(value == 8) {document.getElementById("19").innerHTML = obj.userEvent.charInput;}
+                else if(value == 9) {document.getElementById("110").innerHTML = obj.userEvent.charInput;}
+                else if(value == 10) {document.getElementById("111").innerHTML = obj.userEvent.charInput;}
+                else if(value == 11) {document.getElementById("112").innerHTML = obj.userEvent.charInput;}
+                else if(value == 12) {document.getElementById("113").innerHTML = obj.userEvent.charInput;}
+                else if(value == 13) {document.getElementById("114").innerHTML = obj.userEvent.charInput;}
+                else if(value == 14) {document.getElementById("115").innerHTML = obj.userEvent.charInput;}
             })
         }
     }
@@ -128,7 +128,7 @@ function gameStart() {
         lobbyScreen.style.display = "none";
         gameScreen.style.display = "flex";
 
-        UE = new UserEvent()
+        UE = new UserEvent();
         UE.lobbyId = lobbyId;
         UE.playerId = id;
         UE.status = "start";
@@ -160,6 +160,9 @@ function sendUserGuess() {
         UE.playerId = id;
         UE.status = "start";
         UE.userGuess = userGuess;
+        UE.validLetters = [];
+        UE.charInput = "a";
+
         document.getElementById("userFeedback").innerHTML = "";
         connection.send(JSON.stringify(UE));
         console.log(JSON.stringify(UE));
