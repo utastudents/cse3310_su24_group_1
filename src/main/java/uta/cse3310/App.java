@@ -193,6 +193,7 @@ public class App extends WebSocketServer {
     // A UserEvent is all that is allowed at this point
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
+    UserEvent UE = gson.fromJson(message, UserEvent.class);
 
     // Update the running time
     stats.setRunningTime(Duration.between(startTime, Instant.now()).toSeconds());
@@ -210,7 +211,6 @@ public class App extends WebSocketServer {
       }
     }*/
 
-    UserEvent UE = gson.fromJson(message, UserEvent.class);
     L.setUserEvent(UE);
 
     /* if(UE.status.equals("start")) {
@@ -227,13 +227,11 @@ public class App extends WebSocketServer {
     // send out the game state every time
     // to everyone
     String jsonString;
-    jsonString = gson.toJson(L);
+    jsonString = gson.toJson(L.gameplay.round);
 
     System.out
         .println("> " + Duration.between(startTime, Instant.now()).toMillis() + " " + "*" + " " + escape(jsonString));
     broadcast(jsonString);
-
-
   }
 
   @Override
