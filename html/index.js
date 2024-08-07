@@ -69,7 +69,7 @@ connection.onmessage = function (evt) {
         id = obj.playerID;
         conn = obj.conn;
     }
-    if('roundNumber' in obj) {
+    else if('roundNumber' in obj) {
         var lobbyScreen = document.getElementById("lobbyScreen");
         var gameScreen = document.getElementById("gameScreen");
         var t = obj.roundNumber;
