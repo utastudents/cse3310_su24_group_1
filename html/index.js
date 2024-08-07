@@ -68,8 +68,12 @@ connection.onmessage = function (evt) {
         conn = obj.conn;
     }
     else if('roundNumber' in obj) {
+        var lobbyScreen = document.getElementById("lobbyScreen");
+        var gameScreen = document.getElementById("gameScreen");
         var t = obj.roundNumber;
         if(t) {
+            lobbyScreen.style.display = "none";
+            gameScreen.style.display = "flex";
             console.log("This round " + t);
             document.getElementById("roundNum").innerHTML = "Round " + t + ":";
         }
