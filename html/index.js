@@ -11,9 +11,13 @@ class Player {
     statusPlayer = false;
     inventory = "";
 }
-class UserGuess {
-    playerID = -1;
+class UserEvent {
+    lobbyId = -1;
+    playerId = -1;
+    status = "";
     userGuess = "";
+    validLetters = [];
+    charInput = "";
 }
 
 var connection = null;
@@ -41,7 +45,7 @@ connection.onmessage = function (evt) {
     const obj = JSON.parse(msg);
 
     // When server is online, lobby ID should be displayed in the header of the html file under the title of the game
-    if('leaderboard' in obj) {
+    if('players' in obj) {
         var t = obj.lobbyId;
         if(t) {
             console.log("Lobby ID retrieved successfully");
@@ -60,6 +64,28 @@ connection.onmessage = function (evt) {
 
         id = obj.playerID;
         conn = obj.conn;
+    }
+    else if('validLetters' in obj) {
+        const letters = obj.validLetters;
+        if(letters) {
+            letters.forEach(function updateWordDisplay(value, index, array) {
+                if(value == 0) {document.getElementById("11").innerHTML = obj.charInput;}
+                if(value == 1) {document.getElementById("12").innerHTML = obj.charInput;}
+                if(value == 2) {document.getElementById("13").innerHTML = obj.charInput;}
+                if(value == 3) {document.getElementById("14").innerHTML = obj.charInput;}
+                if(value == 4) {document.getElementById("15").innerHTML = obj.charInput;}
+                if(value == 5) {document.getElementById("16").innerHTML = obj.charInput;}
+                if(value == 6) {document.getElementById("17").innerHTML = obj.charInput;}
+                if(value == 7) {document.getElementById("18").innerHTML = obj.charInput;}
+                if(value == 8) {document.getElementById("19").innerHTML = obj.charInput;}
+                if(value == 9) {document.getElementById("110").innerHTML = obj.charInput;}
+                if(value == 10) {document.getElementById("111").innerHTML = obj.charInput;}
+                if(value == 11) {document.getElementById("112").innerHTML = obj.charInput;}
+                if(value == 12) {document.getElementById("113").innerHTML = obj.charInput;}
+                if(value == 13) {document.getElementById("114").innerHTML = obj.charInput;}
+                if(value == 14) {document.getElementById("115").innerHTML = obj.charInput;}
+            })
+        }
     }
     /* else if ('CurrentTurn' in obj) {
         // show statistics to everyone
@@ -102,8 +128,16 @@ function gameStart() {
         lobbyScreen.style.display = "none";
         gameScreen.style.display = "flex";
 
+        UE = new UserEvent()
+        UE.lobbyId = lobbyId;
+        UE.playerId = id;
+        UE.status = "start";
+        UE.userGuess = "empty";
+        UE.validLetters = [];
+        UE.charInput = "a";
 
-
+        connection.send(JSON.stringify(UE));
+        console.log(JSON.stringify(UE));
         console.log("Game has been started with " + lobbyPlayerCount + " players");
     }
 }
@@ -119,15 +153,16 @@ function gameStartTest() {
 function sendUserGuess() {
     var userGuess = document.getElementById("userGuess").value;
 
-    UG = new UserGuess();
-
-    UG.playerID = id;
-    UG.userGuess = userGuess;
     // The input is only sent if the input is not empty or (valid; needs to be implemented)
     if(userGuess) {
+        UE = new UserEvent();
+        UE.lobbyId = lobbyId;
+        UE.playerId = id;
+        UE.status = "start";
+        UE.userGuess = userGuess;
         document.getElementById("userFeedback").innerHTML = "";
-        connection.send(JSON.stringify(UG));
-        console.log(JSON.stringify(UG));
+        connection.send(JSON.stringify(UE));
+        console.log(JSON.stringify(UE));
     }
     else {
         document.getElementById("userFeedback").innerHTML = "Please enter a valid character or word(s)";
