@@ -11,6 +11,9 @@ public class Gameplay {
     private Wheel wheel;
     private Random random;
     private Scanner scanner;
+    public Round round;
+    public int roundNum;
+    public UserEvent userEvent;
 
     public Gameplay(List<Player> players) {
         this.players = players;
@@ -18,18 +21,33 @@ public class Gameplay {
         this.wheel = new Wheel();
         this.random = new Random();
         this.scanner = new Scanner(System.in);
+        this.roundNum = 1;
+        this.userEvent = new UserEvent();
+    }
+
+    public void setUserEvent(UserEvent UE) {
+        userEvent = UE;
+        if(round != null) {
+            round.setUserEvent(userEvent);
+        }
     }
 
     public void playGame() {
         // Game loop for 3 rounds
-        for (int round = 1; round <= 3; round++) {
-            System.out.println("Round " + round + " begins!");
-            playRound();
-        }
+        //for (int roundNum = 1; roundNum <= 3; roundNum++) {
+            System.out.println("Round " + roundNum + " begins!");
+            this.round = new Round(roundNum);
+            round.startRound();
+
+            round.setUserEvent(userEvent);
+            // playRound();
+        //}
 
         // Calculate the final scores and display the winner
-        Player winner = determineWinner();
-        System.out.println("The winner is " + winner.getPlayerName() + " with " + winner.getPoints() + " points!");
+        if(roundNum == 4) {
+            Player winner = determineWinner();
+            System.out.println("The winner is " + winner.getPlayerName() + " with " + winner.getPoints() + " points!");
+        }
     }
 
     private void playRound() {
@@ -37,6 +55,8 @@ public class Gameplay {
         boolean roundActive = true;
         while (roundActive) {
             Player currentPlayer = players.get(currentPlayerIndex);
+
+            //round.startRound();
 
             // Simulate a player spinning the wheel
             String spinResult = wheel.getRandomItem();
@@ -106,5 +126,9 @@ public class Gameplay {
             }
         }
         return winner;
+    }
+
+    public Round getRound() {
+        return round;
     }
 }

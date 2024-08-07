@@ -45,6 +45,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Collections;
+import java.util.List;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.drafts.Draft;
@@ -201,13 +202,27 @@ public class App extends WebSocketServer {
     //L.Update();
     
     // When a user submits their username
-    Player P = gson.fromJson(message, Player.class);
+    /*Player P = gson.fromJson(message, Player.class);
     for (Player p : L.players) {
       if(p.getPlayerID() == P.getPlayerID()) {
         p.setPlayerName(P.getPlayerName());
         System.out.println(p.getPlayerName());
       }
+    }*/
+
+    UserEvent UE = gson.fromJson(message, UserEvent.class);
+    L.setUserEvent(UE);
+
+    /* if(UE.status.equals("start")) {
+      L.gameStart();
     }
+    // When a user submits a guess
+    else if(UE.userGuess.length() == 1) {
+      UE.charInput = UE.userGuess.charAt(0);
+      UE.validLetters = L.getGameplay().getRound().checkChar(UE.charInput);
+      jsonString = gson.toJson(UE);
+      broadcast(jsonString);
+    } */
 
     // send out the game state every time
     // to everyone

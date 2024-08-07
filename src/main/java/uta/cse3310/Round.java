@@ -22,7 +22,9 @@ public class Round {
     private String status;
     private String currentWord;
     private Random random;
+    private List<Integer> index;
     public List<String> words;
+    public UserEvent userEvent;
 
     // Constructor
     public Round(int roundNumber) {
@@ -32,7 +34,15 @@ public class Round {
         this.score = 0;
         this.status = "not started";
         this.random = new Random();
-        loadWordsFromFile("cse3310_su24_group_1/src/filtered_words.txt");
+        this.userEvent = new UserEvent();
+        // loadWordsFromFile("cse3310_su24_group_1/src/filtered_words.txt");
+    }
+
+    public void setUserEvent(UserEvent UE) {
+        userEvent = UE;
+        if(status.equals("in progress")) {
+            checkChar();
+        }
     }
 
     // Load words from the file
@@ -57,15 +67,31 @@ public class Round {
 
     // Choose a random word from the list
     public void chooseRandomWord() {
-        if (words != null && !words.isEmpty()) {
+        currentWord = "apple";
+        /*if (words != null && !words.isEmpty()) {
             currentWord = words.get(random.nextInt(words.size()));
             System.out.println("Chosen Word: " + currentWord); // For debugging purposes
+        }*/
+    }
+
+    public void checkChar() {
+        if(userEvent.userGuess.length() == 1) {
+            userEvent.charInput = userEvent.userGuess.charAt(0);
+            for(int i = 0; i < currentWord.length(); i++) {
+                if(userEvent.charInput == currentWord.charAt(i)) {
+                    index.add(i);
+                }
+            }
+            userEvent.validLetters = index;
+        }
+        else {
+            checkGuess();
         }
     }
 
     // Check user's guess
-    public boolean checkGuess(String guess) {
-        return guess.equalsIgnoreCase(currentWord);
+    public boolean checkGuess() {
+        return userEvent.userGuess.equalsIgnoreCase(currentWord);
     }
 
     public void endRound() {
