@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Lobby {
     public List<Player> players;
-    private Boolean gameStatus;
-    private int playerCount;
-    private int lobbyId;
-    private Leaderboard leaderboard;
+    public Boolean gameStatus;
+    public int playerCount;
+    public int lobbyId;
+    public Leaderboard leaderboard;
+    public Gameplay gameplay;
+    public UserEvent userEvent;
 
     public Lobby() {
         this.players = new ArrayList<Player>();
@@ -16,6 +18,7 @@ public class Lobby {
         this.playerCount = 0;
         this.lobbyId = 0;
         this.leaderboard = new Leaderboard();
+        this.userEvent = new UserEvent();
     }
 
     public Lobby(int lobbyId) {
@@ -24,13 +27,26 @@ public class Lobby {
         this.playerCount = 0;
         this.lobbyId = lobbyId;
         this.leaderboard = new Leaderboard();
+        this.userEvent = new UserEvent();
+    }
+
+    public void setUserEvent(UserEvent UE) {
+        userEvent = UE;
+        if(gameplay != null && gameStatus == true) {
+            gameplay.setUserEvent(userEvent);
+        }
+        else {
+            gameStart();
+        }
     }
 
     // allows for game to start once there are at least 2 players in lobby
     public void gameStart() {
-        if(playerCount >= 2 && playerCount <= 4) {
-            Gameplay G = new Gameplay(players);
-            gameStatus = true;
+        if((playerCount >= 2 && playerCount <= 4) && userEvent.status.equals("start")) {
+            this.gameStatus = true;
+            gameplay = new Gameplay(players);
+            gameplay.setUserEvent(userEvent);
+            gameplay.playGame();
         }
     }
 
@@ -75,5 +91,9 @@ public class Lobby {
 
     public Boolean getGameStatus() {
         return gameStatus;
+    }
+
+    public Gameplay getGameplay() {
+        return gameplay;
     }
 }

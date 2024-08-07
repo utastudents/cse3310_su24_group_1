@@ -45,6 +45,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Collections;
+import java.util.List;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.drafts.Draft;
@@ -67,7 +68,6 @@ public class App extends WebSocketServer {
   private Vector<Lobby> ActiveLobbies = new Vector<Lobby>();
 
   private int lobbyId = 1;
-  // private int GameId = 1;
 
   private int connectionId = 0;
 
@@ -93,6 +93,7 @@ public class App extends WebSocketServer {
     connectionId++;
 
     System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected");
+    System.out.println(conn);
 
     Gson gson = new Gson();
 
@@ -110,7 +111,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -121,7 +122,7 @@ public class App extends WebSocketServer {
     else if(L.getGameStatus() == false) {
       // join an existing Lobby
       System.out.println("NOT A NEW LOBBY");
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -131,7 +132,7 @@ public class App extends WebSocketServer {
       L = new Lobby(lobbyId);
       lobbyId++;
       // Add the first player
-      Player newPlayer = new Player("", connectionId);
+      Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
@@ -168,6 +169,18 @@ public class App extends WebSocketServer {
     System.out.println(conn + " has closed");
     // Retrieve the game tied to the websocket connection
     Lobby L = conn.getAttachment();
+    for(Player p : L.players) {
+      if(p.getConn().equals(conn.toString())) {
+        System.out.println("Removing player with connection " + p.getConn());
+        L.players.remove(p);
+        L.setPlayerCount();
+        break;
+      }
+    }
+    if(L.getPlayerCount() == 0) {
+      System.out.println("Lobby empty, removing");
+      this.ActiveLobbies.remove(L);
+    }
     L = null;
   }
 
@@ -180,6 +193,7 @@ public class App extends WebSocketServer {
     // A UserEvent is all that is allowed at this point
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.create();
+    UserEvent UE = gson.fromJson(message, UserEvent.class);
 
     // Update the running time
     stats.setRunningTime(Duration.between(startTime, Instant.now()).toSeconds());
@@ -189,24 +203,35 @@ public class App extends WebSocketServer {
     //L.Update();
     
     // When a user submits their username
-    Player P = gson.fromJson(message, Player.class);
+    /*Player P = gson.fromJson(message, Player.class);
     for (Player p : L.players) {
       if(p.getPlayerID() == P.getPlayerID()) {
         p.setPlayerName(P.getPlayerName());
         System.out.println(p.getPlayerName());
       }
+    }*/
+
+    L.setUserEvent(UE);
+
+    /* if(UE.status.equals("start")) {
+      L.gameStart();
     }
+    // When a user submits a guess
+    else if(UE.userGuess.length() == 1) {
+      UE.charInput = UE.userGuess.charAt(0);
+      UE.validLetters = L.getGameplay().getRound().checkChar(UE.charInput);
+      jsonString = gson.toJson(UE);
+      broadcast(jsonString);
+    } */
 
     // send out the game state every time
     // to everyone
     String jsonString;
-    jsonString = gson.toJson(L);
+    jsonString = gson.toJson(L.gameplay.round);
 
     System.out
         .println("> " + Duration.between(startTime, Instant.now()).toMillis() + " " + "*" + " " + escape(jsonString));
     broadcast(jsonString);
-
-
   }
 
   @Override
