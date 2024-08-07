@@ -3,8 +3,8 @@ package uta.cse3310;
 import java.util.List;
 
 public class UserEvent {
-    private int lobbyId;
-    private int playerId;
+    public int lobbyId;
+    public int playerId;
     public String status;
     public String userGuess;
     public List<Integer> validLetters;
@@ -21,13 +21,5 @@ public class UserEvent {
         this.userGuess = userGuess;
         this.validLetters = validLetters;
         this.charInput = charInput;
-    }
-
-    public int getLobbyId() {
-        return lobbyId;
-    }
-
-    public int getPlayerId() {
-        return playerId;
     }
 }
