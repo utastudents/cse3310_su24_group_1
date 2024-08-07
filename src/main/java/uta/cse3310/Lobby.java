@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Lobby {
     public List<Player> players;
-    private Boolean gameStatus;
-    private int playerCount;
-    private int lobbyId;
-    private Leaderboard leaderboard;
+    public Boolean gameStatus;
+    public int playerCount;
+    public int lobbyId;
+    public Leaderboard leaderboard;
     public Gameplay gameplay;
     public UserEvent userEvent;
 
@@ -43,10 +43,10 @@ public class Lobby {
     // allows for game to start once there are at least 2 players in lobby
     public void gameStart() {
         if((playerCount >= 2 && playerCount <= 4) && userEvent.status.equals("start")) {
-            gameStatus = true;
+            this.gameStatus = true;
             gameplay = new Gameplay(players);
+            gameplay.setUserEvent(userEvent);
             gameplay.playGame();
-            gameplay.setUserEvent(userEvent); 
         }
     }
 
