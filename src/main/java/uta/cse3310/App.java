@@ -100,7 +100,7 @@ public class App extends WebSocketServer {
     // search for a lobby needing a player
     Lobby L = null;
     for (Lobby i : ActiveLobbies) {
-      if (i.getPlayerCount() >= 1 && i.getPlayerCount() < 4) {
+      if ((i.getPlayerCount() >= 1 && i.getPlayerCount() < 4) && i.gameStatus == false) {
         L = i;
         System.out.println("FOUND AN ONGOING LOBBY");
       }
@@ -121,12 +121,12 @@ public class App extends WebSocketServer {
     } 
     else if(L.getGameStatus() == false) {
       // join an existing Lobby
-      System.out.println("NOT A NEW LOBBY");
       Player newPlayer = new Player("", connectionId, conn.toString());
       String jsonString = gson.toJson(newPlayer);
       conn.send(jsonString);
       L.players.add(newPlayer);
       L.setPlayerCount();
+      System.out.println("NOT A NEW LOBBY");
     }
     /*else {
       L = new Lobby(lobbyId);

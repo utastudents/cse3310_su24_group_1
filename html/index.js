@@ -48,16 +48,24 @@ connection.onmessage = function (evt) {
 
     // When server is online, lobby ID should be displayed in the header of the html file under the title of the game
     if('players' in obj) {
+        lobbyId = obj.lobbyId;
+        id = obj.playerID;
+        conn = obj.conn;
+        lobbyPlayerCount = obj.playerCount;
         var t = obj.lobbyId;
         if(t) {
             console.log("Lobby ID retrieved successfully");
-            document.getElementById("topMessage").innerHTML = "Lobby: " + t;
+            if(lobbyId == obj.lobbyId && id == obj.playerID) {
+                document.getElementById("topMessage").innerHTML = "Lobby: " + t;
+            }
+        } 
+        t = obj.playerID;
+        if(t) {
+            console.log("Player ID retrieved successfully");
+            document.getElementById("topMessage2").innerHTML = "Player: " + t;
         }
-
-        lobbyId = obj.lobbyId;
-        lobbyPlayerCount = obj.playerCount;
     }
-    else if('playerID' in obj) {
+    /*else if('playerID' in obj) {
         var t = obj.playerID;
         if(t) {
             console.log("Player ID retrieved successfully");
@@ -66,7 +74,7 @@ connection.onmessage = function (evt) {
 
         id = obj.playerID;
         conn = obj.conn;
-    }
+    }*/
     else if('roundNumber' in obj) {
         var lobbyScreen = document.getElementById("lobbyScreen");
         var gameScreen = document.getElementById("gameScreen");
