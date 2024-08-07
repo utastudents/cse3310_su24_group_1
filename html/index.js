@@ -78,65 +78,67 @@ connection.onmessage = function (evt) {
             document.getElementById("roundNum").innerHTML = "Round " + t + ":";
         }
  
-        const letters1 = obj.userEvent.validLetters1;
-        if(letters1) {
-            letters1.forEach(function updateWordDisplay(value) {
-                if(value == 0) {document.getElementById("11").innerHTML = obj.userEvent.charInput;}
-                else if(value == 1) {document.getElementById("12").innerHTML = obj.userEvent.charInput;}
-                else if(value == 2) {document.getElementById("13").innerHTML = obj.userEvent.charInput;}
-                else if(value == 3) {document.getElementById("14").innerHTML = obj.userEvent.charInput;}
-                else if(value == 4) {document.getElementById("15").innerHTML = obj.userEvent.charInput;}
-                else if(value == 5) {document.getElementById("16").innerHTML = obj.userEvent.charInput;}
-                else if(value == 6) {document.getElementById("17").innerHTML = obj.userEvent.charInput;}
-                else if(value == 7) {document.getElementById("18").innerHTML = obj.userEvent.charInput;}
-                else if(value == 8) {document.getElementById("19").innerHTML = obj.userEvent.charInput;}
-                else if(value == 9) {document.getElementById("110").innerHTML = obj.userEvent.charInput;}
-                else if(value == 10) {document.getElementById("111").innerHTML = obj.userEvent.charInput;}
-                else if(value == 11) {document.getElementById("112").innerHTML = obj.userEvent.charInput;}
-                else if(value == 12) {document.getElementById("113").innerHTML = obj.userEvent.charInput;}
-                else if(value == 13) {document.getElementById("114").innerHTML = obj.userEvent.charInput;}
-                else if(value == 14) {document.getElementById("115").innerHTML = obj.userEvent.charInput;}
-            })
-        }
-        const letters2 = obj.userEvent.validLetters2;
-        if(letters2) {
-            letters2.forEach(function updateWordDisplay(value) {
-                if(value == 0) {document.getElementById("21").innerHTML = obj.userEvent.charInput;}
-                else if(value == 1) {document.getElementById("22").innerHTML = obj.userEvent.charInput;}
-                else if(value == 2) {document.getElementById("23").innerHTML = obj.userEvent.charInput;}
-                else if(value == 3) {document.getElementById("24").innerHTML = obj.userEvent.charInput;}
-                else if(value == 4) {document.getElementById("25").innerHTML = obj.userEvent.charInput;}
-                else if(value == 5) {document.getElementById("26").innerHTML = obj.userEvent.charInput;}
-                else if(value == 6) {document.getElementById("27").innerHTML = obj.userEvent.charInput;}
-                else if(value == 7) {document.getElementById("28").innerHTML = obj.userEvent.charInput;}
-                else if(value == 8) {document.getElementById("29").innerHTML = obj.userEvent.charInput;}
-                else if(value == 9) {document.getElementById("210").innerHTML = obj.userEvent.charInput;}
-                else if(value == 10) {document.getElementById("211").innerHTML = obj.userEvent.charInput;}
-                else if(value == 11) {document.getElementById("212").innerHTML = obj.userEvent.charInput;}
-                else if(value == 12) {document.getElementById("213").innerHTML = obj.userEvent.charInput;}
-                else if(value == 13) {document.getElementById("214").innerHTML = obj.userEvent.charInput;}
-                else if(value == 14) {document.getElementById("215").innerHTML = obj.userEvent.charInput;}
-            })
-        }
-        const letters3 = obj.userEvent.validLetters3;
-        if(letters3) {
-            letters3.forEach(function updateWordDisplay(value) {
-                if(value == 0) {document.getElementById("31").innerHTML = obj.userEvent.charInput;}
-                else if(value == 1) {document.getElementById("32").innerHTML = obj.userEvent.charInput;}
-                else if(value == 2) {document.getElementById("33").innerHTML = obj.userEvent.charInput;}
-                else if(value == 3) {document.getElementById("34").innerHTML = obj.userEvent.charInput;}
-                else if(value == 4) {document.getElementById("35").innerHTML = obj.userEvent.charInput;}
-                else if(value == 5) {document.getElementById("36").innerHTML = obj.userEvent.charInput;}
-                else if(value == 6) {document.getElementById("37").innerHTML = obj.userEvent.charInput;}
-                else if(value == 7) {document.getElementById("38").innerHTML = obj.userEvent.charInput;}
-                else if(value == 8) {document.getElementById("39").innerHTML = obj.userEvent.charInput;}
-                else if(value == 9) {document.getElementById("310").innerHTML = obj.userEvent.charInput;}
-                else if(value == 10) {document.getElementById("311").innerHTML = obj.userEvent.charInput;}
-                else if(value == 11) {document.getElementById("312").innerHTML = obj.userEvent.charInput;}
-                else if(value == 12) {document.getElementById("313").innerHTML = obj.userEvent.charInput;}
-                else if(value == 13) {document.getElementById("314").innerHTML = obj.userEvent.charInput;}
-                else if(value == 14) {document.getElementById("315").innerHTML = obj.userEvent.charInput;}
-            })
+        if(obj.userEvent.lobbyId == lobbyId) {
+            const letters1 = obj.userEvent.validLetters1;
+            if(letters1) {
+                letters1.forEach(function updateWordDisplay(value) {
+                    if(value == 0) {document.getElementById("11").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 1) {document.getElementById("12").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 2) {document.getElementById("13").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 3) {document.getElementById("14").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 4) {document.getElementById("15").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 5) {document.getElementById("16").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 6) {document.getElementById("17").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 7) {document.getElementById("18").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 8) {document.getElementById("19").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 9) {document.getElementById("110").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 10) {document.getElementById("111").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 11) {document.getElementById("112").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 12) {document.getElementById("113").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 13) {document.getElementById("114").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 14) {document.getElementById("115").innerHTML = obj.userEvent.charInput;}
+                })
+            }
+            const letters2 = obj.userEvent.validLetters2;
+            if(letters2) {
+                letters2.forEach(function updateWordDisplay(value) {
+                    if(value == 0) {document.getElementById("21").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 1) {document.getElementById("22").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 2) {document.getElementById("23").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 3) {document.getElementById("24").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 4) {document.getElementById("25").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 5) {document.getElementById("26").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 6) {document.getElementById("27").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 7) {document.getElementById("28").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 8) {document.getElementById("29").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 9) {document.getElementById("210").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 10) {document.getElementById("211").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 11) {document.getElementById("212").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 12) {document.getElementById("213").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 13) {document.getElementById("214").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 14) {document.getElementById("215").innerHTML = obj.userEvent.charInput;}
+                })
+            }
+            const letters3 = obj.userEvent.validLetters3;
+            if(letters3) {
+                letters3.forEach(function updateWordDisplay(value) {
+                    if(value == 0) {document.getElementById("31").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 1) {document.getElementById("32").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 2) {document.getElementById("33").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 3) {document.getElementById("34").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 4) {document.getElementById("35").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 5) {document.getElementById("36").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 6) {document.getElementById("37").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 7) {document.getElementById("38").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 8) {document.getElementById("39").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 9) {document.getElementById("310").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 10) {document.getElementById("311").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 11) {document.getElementById("312").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 12) {document.getElementById("313").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 13) {document.getElementById("314").innerHTML = obj.userEvent.charInput;}
+                    else if(value == 14) {document.getElementById("315").innerHTML = obj.userEvent.charInput;}
+                })
+            }
         }
     }
     /* else if ('CurrentTurn' in obj) {
