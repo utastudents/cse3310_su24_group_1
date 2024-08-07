@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class Gameplay {
 
-    private List<Player> players;
-    private int currentPlayerIndex;
-    private Wheel wheel;
-    private Random random;
-    private Scanner scanner;
+    public List<Player> players;
+    public int currentPlayerIndex;
+    public Wheel wheel;
+    public Random random;
+    public Scanner scanner;
     public Round round;
     public int roundNum;
     public UserEvent userEvent;
@@ -27,7 +27,8 @@ public class Gameplay {
 
     public void setUserEvent(UserEvent UE) {
         userEvent = UE;
-        if(round != null) {
+        //System.out.println(userEvent.userGuess);
+        if(round != null && round.getStatus().equals("in progress")) {
             round.setUserEvent(userEvent);
         }
     }
@@ -37,8 +38,8 @@ public class Gameplay {
         //for (int roundNum = 1; roundNum <= 3; roundNum++) {
             System.out.println("Round " + roundNum + " begins!");
             this.round = new Round(roundNum);
+            
             round.startRound();
-
             round.setUserEvent(userEvent);
             // playRound();
         //}
