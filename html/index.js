@@ -32,7 +32,7 @@ connection = new WebSocket(serverUrl);
         
 connection.onopen = function (evt) {
     console.log("open");
-    document.getElementById("topMessage").innerHTML = "Server Online";
+    //document.getElementById("topMessage").innerHTML = "Server Online";
 }
 
 connection.onclose = function (evt) {
