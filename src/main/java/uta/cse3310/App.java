@@ -138,10 +138,10 @@ public class App extends WebSocketServer {
       if(L.getPlayerCount() == 2) {
         SE.youAre = PlayerNum.TWO;
       }
-      if(L.getPlayerCount() == 3) {
+      else if(L.getPlayerCount() == 3) {
         SE.youAre = PlayerNum.THREE;
       }
-      if(L.getPlayerCount() == 2) {
+      else if(L.getPlayerCount() == 4) {
         SE.youAre = PlayerNum.FOUR;
       }
       System.out.println("NOT A NEW LOBBY");
