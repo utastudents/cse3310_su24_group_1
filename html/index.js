@@ -59,6 +59,9 @@ connection.onmessage = function (evt) {
         P.conn = conn;
         P.points = 0;
 
+        UE.lobbyId = lobbyId;
+        UE.playerId = id;
+
         var t = obj.lobbyId;
         if(t) {
             console.log("Lobby ID retrieved successfully");
@@ -164,11 +167,11 @@ function nameSubmit() {
     //alert(usernameInput);
 
     if(usernameInput) {
-        P = new Player();
+        //P = new Player();
         P.playerName = usernameInput;
-        P.playerID = id;
-        P.conn = conn;
-        P.points = 0;
+        //P.playerID = id;
+        //P.conn = conn;
+        //P.points = 0;
 
         connection.send(JSON.stringify(P));
         console.log(JSON.stringify(P));
