@@ -35,8 +35,15 @@ public class Lobby {
         if(gameplay != null && gameStatus == true) {
             gameplay.setUserEvent(userEvent);
         }
-        else {
+        else if(UE.status.equals("start")) {
             gameStart();
+        }
+        else if(UE.status.equals("name")) {
+            for(Player p : players) {
+                if(p.getPlayerID() == UE.playerId) {
+                    p.setPlayerName(UE.playerName);
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ var id = -1;
 var conn = "";
 var lobbyId = -1;
 var lobbyPlayerCount = -1;
+var youAre = "NONE";
 class Player {
     playerName = "";
     playerID = -1;
@@ -14,6 +15,7 @@ class Player {
 class UserEvent {
     lobbyId = -1;
     playerId = -1;
+    playerName = "";
     status = "";
     userGuess = "";
     validLetters1 = [];
@@ -54,6 +56,7 @@ connection.onmessage = function (evt) {
         id = obj.playerId;
         lobbyPlayerCount = obj.playerCount;
         conn = obj.connection;
+        youAre = obj.youAre;
 
         P.playerID = id;
         P.conn = conn;
@@ -61,6 +64,7 @@ connection.onmessage = function (evt) {
 
         UE.lobbyId = lobbyId;
         UE.playerId = id;
+        UE.charInput = "/";
 
         var t = obj.lobbyId;
         if(t) {
@@ -74,6 +78,24 @@ connection.onmessage = function (evt) {
         if(t2) {
             console.log("Player ID retrieved successfully");
             document.getElementById("topMessage2").innerHTML = "Player: " + t2;
+        }
+    }
+    else if('players' in obj) {
+        if(youAre.localeCompare("ONE") == 0) {
+            document.getElementById("p1").innerHTML = "1. " + UE.playerName + ": ";
+            document.getElementById("P-One").innerHTML = "1. " + UE.playerName + ": ";
+        }
+        else if(youAre.localeCompare("TWO") == 0) {
+            document.getElementById("p2").innerHTML = "2. " + UE.playerName + ": ";
+            document.getElementById("P-Two").innerHTML = "2. " + UE.playerName + ": ";
+        }
+        else if(youAre.localeCompare("THREE") == 0) {
+            document.getElementById("p3").innerHTML = "3. " + UE.playerName + ": ";
+            document.getElementById("P-Three").innerHTML = "3. " + UE.playerName + ": ";
+        }
+        else if(youAre.localeCompare("FOUR") == 0) {
+            document.getElementById("p4").innerHTML = "4. " + UE.playerName + ": ";
+            document.getElementById("P-Four").innerHTML = "4. " + UE.playerName + ": ";
         }
     }
     else if('roundNumber' in obj) {
@@ -168,13 +190,15 @@ function nameSubmit() {
 
     if(usernameInput) {
         //P = new Player();
-        P.playerName = usernameInput;
+        //P.playerName = usernameInput;
+        UE.playerName = usernameInput;
+        UE.status = "name";
         //P.playerID = id;
         //P.conn = conn;
         //P.points = 0;
 
-        connection.send(JSON.stringify(P));
-        console.log(JSON.stringify(P));
+        connection.send(JSON.stringify(UE));
+        console.log(JSON.stringify(UE));
     }
     else {
         // add message here to send to user when username is invalid

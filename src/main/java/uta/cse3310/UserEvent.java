@@ -5,6 +5,7 @@ import java.util.List;
 public class UserEvent {
     public int lobbyId;
     public int playerId;
+    public String playerName;
     public String status;
     public String userGuess;
     public List<Integer> validLetters1;
