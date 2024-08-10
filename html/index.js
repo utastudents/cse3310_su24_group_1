@@ -21,6 +21,7 @@ class UserEvent {
     validLetters3 = [];
     charInput = "";
 }
+UE = new UserEvent();
 
 var connection = null;
         
@@ -47,14 +48,15 @@ connection.onmessage = function (evt) {
     const obj = JSON.parse(msg);
 
     // When server is online, lobby ID should be displayed in the header of the html file under the title of the game
-    if('players' in obj) {
+    if('youAre' in obj) {
         lobbyId = obj.lobbyId;
+        id = obj.playerId;
         lobbyPlayerCount = obj.playerCount;
 
         var t = obj.lobbyId;
         if(t) {
             console.log("Lobby ID retrieved successfully");
-            if(lobbyId == obj.lobbyId && id == obj.playerID) {
+            if(lobbyId == obj.lobbyId) {
                 document.getElementById("topMessage").innerHTML = "Lobby: " + t;
             }
         } 
@@ -66,7 +68,6 @@ connection.onmessage = function (evt) {
             document.getElementById("topMessage2").innerHTML = "Player: " + t;
         }
 
-        id = obj.playerID;
         conn = obj.conn;
     }
     else if('roundNumber' in obj) {
@@ -184,14 +185,14 @@ function gameStart() {
         lobbyScreen.style.display = "none";
         gameScreen.style.display = "flex";
 
-        UE = new UserEvent();
+        //UE = new UserEvent();
         UE.lobbyId = lobbyId;
         UE.playerId = id;
         UE.status = "start";
-        UE.userGuess = "";
-        UE.validLetters1 = [];
-        UE.validLetters2 = [];
-        UE.validLetters3 = [];
+        //UE.userGuess = "";
+        //UE.validLetters1 = [];
+        //UE.validLetters2 = [];
+        //UE.validLetters3 = [];
         UE.charInput = "/";
 
         connection.send(JSON.stringify(UE));
@@ -213,14 +214,14 @@ function sendUserGuess() {
 
     // The input is only sent if the input is not empty or (valid; needs to be implemented)
     if(userGuess) {
-        UE = new UserEvent();
+        //UE = new UserEvent();
         UE.lobbyId = lobbyId;
         UE.playerId = id;
         UE.status = "start";
         UE.userGuess = userGuess;
-        UE.validLetters1 = [];
-        UE.validLetters2 = [];
-        UE.validLetters3 = [];
+        //UE.validLetters1 = [];
+        //UE.validLetters2 = [];
+        //UE.validLetters3 = [];
         UE.charInput = "/";
 
         document.getElementById("userFeedback").innerHTML = "";

@@ -95,6 +95,8 @@ public class App extends WebSocketServer {
     System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected");
     System.out.println(conn);
 
+    ServerEvent SE = new ServerEvent();
+
     Gson gson = new Gson();
 
     // search for a lobby needing a player
@@ -116,6 +118,10 @@ public class App extends WebSocketServer {
       conn.send(jsonString);
       L.players.add(newPlayer);
       L.setPlayerCount();
+      SE.youAre = PlayerNum.ONE;
+      SE.lobbyId = lobbyId;
+      SE.playerId = connectionId;
+      SE.playerCount = L.getPlayerCount();
       ActiveLobbies.add(L);
       System.out.println("CREATING A NEW LOBBY");
     } 
@@ -126,20 +132,22 @@ public class App extends WebSocketServer {
       conn.send(jsonString);
       L.players.add(newPlayer);
       L.setPlayerCount();
+      SE.lobbyId = lobbyId;
+      SE.playerId = connectionId;
+      SE.playerCount = L.getPlayerCount();
+      if(L.getPlayerCount() == 2) {
+        SE.youAre = PlayerNum.TWO;
+      }
+      if(L.getPlayerCount() == 3) {
+        SE.youAre = PlayerNum.THREE;
+      }
+      if(L.getPlayerCount() == 2) {
+        SE.youAre = PlayerNum.FOUR;
+      }
       System.out.println("NOT A NEW LOBBY");
     }
-    /*else {
-      L = new Lobby(lobbyId);
-      lobbyId++;
-      // Add the first player
-      Player newPlayer = new Player("", connectionId, conn.toString());
-      String jsonString = gson.toJson(newPlayer);
-      conn.send(jsonString);
-      L.players.add(newPlayer);
-      L.setPlayerCount();
-      ActiveLobbies.add(L);
-      System.out.println("MAX AMOUNT OF PLAYERS, CREATING A NEW LOBBY");
-    }*/
+
+    SE.lobbyId = L.lobbyId;
 
     // allows the websocket to give us the Lobby when a message arrives..
     // it stores a pointer to L, and will give that pointer back to us
@@ -147,7 +155,7 @@ public class App extends WebSocketServer {
     conn.setAttachment(L);
 
     // Note only send to the single connection
-    String jsonString = gson.toJson(L);
+    String jsonString = gson.toJson(SE);
     conn.send(jsonString);
     System.out
         .println("> " + Duration.between(startTime, Instant.now()).toMillis() + " " + connectionId + " "
