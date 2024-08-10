@@ -21,6 +21,7 @@ class UserEvent {
     validLetters3 = [];
     charInput = "";
 }
+P = new Player();
 UE = new UserEvent();
 
 var connection = null;
@@ -52,6 +53,11 @@ connection.onmessage = function (evt) {
         lobbyId = obj.lobbyId;
         id = obj.playerId;
         lobbyPlayerCount = obj.playerCount;
+        conn = obj.connection;
+
+        P.playerID = id;
+        P.conn = conn;
+        P.points = 0;
 
         var t = obj.lobbyId;
         if(t) {
@@ -60,15 +66,12 @@ connection.onmessage = function (evt) {
                 document.getElementById("topMessage").innerHTML = "Lobby: " + t;
             }
         } 
-    }
-    else if('playerID' in obj) {
-        var t = obj.playerID;
-        if(t) {
-            console.log("Player ID retrieved successfully");
-            document.getElementById("topMessage2").innerHTML = "Player: " + t;
-        }
 
-        conn = obj.conn;
+        var t2 = obj.playerId;
+        if(t2) {
+            console.log("Player ID retrieved successfully");
+            document.getElementById("topMessage2").innerHTML = "Player: " + t2;
+        }
     }
     else if('roundNumber' in obj) {
         var lobbyScreen = document.getElementById("lobbyScreen");

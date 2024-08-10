@@ -114,13 +114,13 @@ public class App extends WebSocketServer {
       lobbyId++;
       // Add the first player
       Player newPlayer = new Player("", connectionId, conn.toString());
-      String jsonString = gson.toJson(newPlayer);
-      conn.send(jsonString);
+      //String jsonString = gson.toJson(newPlayer);
+      //conn.send(jsonString);
       L.players.add(newPlayer);
       L.setPlayerCount();
       SE.youAre = PlayerNum.ONE;
-      SE.lobbyId = lobbyId;
       SE.playerId = connectionId;
+      SE.connection = conn.toString();
       SE.playerCount = L.getPlayerCount();
       ActiveLobbies.add(L);
       System.out.println("CREATING A NEW LOBBY");
@@ -128,12 +128,12 @@ public class App extends WebSocketServer {
     else if(L.getGameStatus() == false) {
       // join an existing Lobby
       Player newPlayer = new Player("", connectionId, conn.toString());
-      String jsonString = gson.toJson(newPlayer);
-      conn.send(jsonString);
+      //String jsonString = gson.toJson(newPlayer);
+      //conn.send(jsonString);
       L.players.add(newPlayer);
       L.setPlayerCount();
-      SE.lobbyId = lobbyId;
       SE.playerId = connectionId;
+      SE.connection = conn.toString();
       SE.playerCount = L.getPlayerCount();
       if(L.getPlayerCount() == 2) {
         SE.youAre = PlayerNum.TWO;
