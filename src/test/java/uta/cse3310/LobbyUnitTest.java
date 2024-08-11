@@ -21,7 +21,7 @@ public class LobbyUnitTest extends TestCase {
         return new TestSuite(LobbyUnitTest.class);
     }
 
-    public void testLobby() {
+    public void testLobbyInitialization() {
         Lobby L = new Lobby();
 
         // test whenever there is only 1 player
@@ -46,5 +46,26 @@ public class LobbyUnitTest extends TestCase {
 
         // test leaderboard after 2 players are added
         L.displayLeaderboard();
+    }
+
+    public void testGameStart() {
+        Lobby L = new Lobby(1);
+
+        // Game should not start since no players are in
+        L.gameStart();
+        assertNull(L.gameplay);
+
+        // Add 2 players and the User Event
+        Player p1 = new Player("JohnDoe", 1, "testConn1");
+        Player p2 = new Player("JaneDoe", 2, "testConn2");
+
+        L.players.add(p1);
+        L.players.add(p2);
+        L.setPlayerCount();
+
+        L.userEvent.status = "start";
+
+        //L.gameStart();
+        //assertNotNull(L.gameplay);
     }
 }
